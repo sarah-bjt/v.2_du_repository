@@ -622,7 +622,7 @@ glm::vec2 rotated(glm::vec2 point, glm::vec2 center_of_rotation, float angle)
     return glm::vec2{glm::rotate(glm::mat3{1.f}, angle) * glm::vec3{point - center_of_rotation, 0.f}} + center_of_rotation;
 }
 
-// void vortex (sil::Image image)
+// void vortex (sil::Image image)        cool mais pas ce qu'on veut
 // {
 //     sil::Image imageVortex {image};
 //     int x_centre {image.width()/2};
@@ -678,6 +678,53 @@ void vortex (sil::Image image)
     imageVortex.save("output/ex18vortex.png");
 }
 
+// Exercice 19 : Normalisation de l'histogramme 
+
+// float brightness (int image.pixel(x,y).r, int image.pixel(x,y).b, int image.pixel(x,y).g)
+// {
+//     float brightness_value {(image.pixel(x,y).r + image.pixel(x,y).b + image.pixel(x,y).g)/3};
+//     return brightness_value;
+// }
+
+
+
+void normalisationHistogramme (sil::Image image)
+{
+    float low_brightness {1};
+    int low_x {0};
+    int low_y {0};
+    float hight_brightness {0};
+    int hight_x {0};
+    int hight_y {0};
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            float brightness_value = (image.pixel(x,y).r + image.pixel(x,y).b + image.pixel(x,y).g)/3;
+            if (brightness_value >= hight_brightness)
+            {
+                hight_brightness = brightness_value;
+                hight_x = x;
+                hight_y = y;
+            }
+            else if (brightness_value <= low_brightness)
+            {
+                low_brightness = brightness_value;
+                low_x = x;
+                low_y = y;
+            }
+        } 
+    }
+    for (glm::vec3& color : image.pixels())
+    {
+            color.g = color.g * (1/hight_brightness) - low_brightness;
+            color.r = color.r * (1/hight_brightness) - low_brightness;
+            color.b = color.b * (1/hight_brightness) - low_brightness;
+    } 
+    image.save("output/ex19normalisationHistogramme.png"); 
+}
+
+
 
 int main()
 {
@@ -705,10 +752,11 @@ int main()
 //    cercle(50);
 //    mosaique1(logo);
 //    mosaique2(logo);
-    // mosaique_miroir(logo);
-    tramage(photo);
+//    mosaique_miroir(logo);
+//    tramage(photo);
 //    mosaique_miroir(logo);
 //    glitch(logo);
 //    vortex(logo);
+//    normalisationHistogramme(photo);
     return 0;
 }
