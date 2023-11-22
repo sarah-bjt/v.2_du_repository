@@ -441,51 +441,151 @@ void mosaique_miroir(sil::Image logo)
 
 //     imageGlitch.save("output/ex16glitch.png");
 // }
+//                                                               Glitch pas ouf qui fonctionne pas
+// void glitch (sil::Image image)
+// {
+//     sil::Image imageGlitch {image};
+//     int width {image.width()};
+//     int height {image.height()};
+//     int nbr_de_glitch {random_int(10,60)};
+//     int count{0};
+//     while(count<nbr_de_glitch)
+//     {
+//         int x0_glitch {random_int(0,width-20)};
+//         int y0_glitch {random_int(0,height-20)};
+//         int lenght_glitch {random_int(6,10)};
+//         int thinckness_glitch {random_int(1,6)};
+//         for (int x{x0_glitch}; x < x0_glitch + lenght_glitch; ++x)
+//         {
+//             for (int y{y0_glitch}; y < y0_glitch + thinckness_glitch; ++y)
+//             {
+//                 if(x0_glitch < width/2 && y0_glitch < height/2) //bas-gch
+//                 {
+//                     imageGlitch.pixel(x, y).r = image.pixel(x+width/2, y+height/2).r;
+//                     imageGlitch.pixel(x, y).b = image.pixel(x+width/2, y+height/2).b;
+//                     imageGlitch.pixel(x, y).g = image.pixel(x+width/2, y+height/2).g;
+//                 }
+//                 else if(x0_glitch < width/2 && y0_glitch > height/2) //haut-gch
+//                 {
+//                     imageGlitch.pixel(x, y).r = image.pixel(x+width/2, y-height/2).r;
+//                     imageGlitch.pixel(x, y).b = image.pixel(x+width/2, y-height/2).b;
+//                     imageGlitch.pixel(x, y).g = image.pixel(x+width/2, y-height/2).g;
+//                 }
+//                 else if(x0_glitch > width/2 && y0_glitch < height/2) //bas-drt
+//                 {
+//                     imageGlitch.pixel(x, y).r = image.pixel(x-width/2, y+height/2).r;
+//                     imageGlitch.pixel(x, y).b = image.pixel(x-width/2, y+height/2).b;
+//                     imageGlitch.pixel(x, y).g = image.pixel(x-width/2, y+height/2).g;
+//                 }
+//                 else if(x0_glitch > width/2 && y0_glitch > height/2) //haut-drt
+//                 {
+//                     imageGlitch.pixel(x, y).r = image.pixel(x-width/2, y-height/2).r;
+//                     imageGlitch.pixel(x, y).b = image.pixel(x-width/2, y-height/2).b;
+//                     imageGlitch.pixel(x, y).g = image.pixel(x-width/2, y-height/2).g;
+//                 }
+//             }
+//         }
+
+//     }
+//     imageGlitch.save("output/ex16glitch.png");
+// }
+
+// void glitch(sil::Image image)
+// {
+//     sil::Image imageGlitch {image};
+//     int width {image.width()};
+//     int height {image.height()};
+//     int nbr_de_glitch {random_int(30,200)};
+//     int count{0};
+//     //int x0_glitch {random_int(0,width-20)};
+//     //int y0_glitch {random_int(0,height-20)};
+//     //int lenght_glitch {random_int(6,10)};
+//     //int thinckness_glitch {random_int(1,6)};
+//     for (int x{0}; x < image.width(); x++)
+//     {
+//         for (int y{0}; y < image.height(); y++)
+//         {
+//             int isPixelGlitch {random_int(0,10)};
+//             if (isPixelGlitch == 1 && imageGlitch.pixel(x, y).r == image.pixel(x, y).r && imageGlitch.pixel(x, y).b == image.pixel(x, y).b && imageGlitch.pixel(x, y).g == image.pixel(x, y).g)
+//             // si le pixel doit glitcher et qu'il n'a pas encore été changé
+//             {
+//                 int lenght_glitch {random_int(6,10)};
+//                 int thinckness_glitch {random_int(1,6)};
+//                 int x0_glitch {x};
+//                 int y0_glitch {y};
+
+//                 if(x0_glitch < width/2 && y0_glitch < height/2) //si glitch est en bas-gch
+//                 {
+//                     for (int longu {0} ; longu < lenght_glitch ; longu ++ ) // travaille sur la longuere 
+//                     {
+//                         for (int larg {0}; larg < thinckness_glitch; larg ++) // travaille sur la largeure
+//                         {
+//                             imageGlitch.pixel(x0_glitch+longu, y0_glitch+larg).r = image.pixel(width - longu, height-y0_glitch-larg).r;
+//                             imageGlitch.pixel(x0_glitch+longu, y0_glitch+larg).g = image.pixel(width - longu, height-y0_glitch-larg).g;
+//                             imageGlitch.pixel(x0_glitch+longu, y0_glitch+larg).b = image.pixel(width - longu, height-y0_glitch-larg).b;
+//                         }
+
+//                     }
+//                 }
+//                 else if(x0_glitch < width/2 && y0_glitch > height/2) // si glitch est en haut-gch
+//                 {
+//                     for (int longu {0} ; longu < lenght_glitch ; longu ++) // travaille sur la longuere 
+//                     {
+//                         for (int larg {0}; larg < thinckness_glitch; larg ++) // travaille sur la largeure
+//                         {
+//                             imageGlitch.pixel(x0_glitch+longu, y0_glitch-larg).r = image.pixel(width - longu, y0_glitch+larg).r;
+//                             imageGlitch.pixel(x0_glitch+longu, y0_glitch-larg).g = image.pixel(width - longu, y0_glitch+larg).g;
+//                             imageGlitch.pixel(x0_glitch+longu, y0_glitch-larg).b = image.pixel(width - longu, y0_glitch+larg).b;
+//                         }
+//                     }
+//                 }
+//                 else if(x0_glitch > width/2 && y0_glitch < height/2) //si glitch en bas-drt
+//                 {
+//                     for (int longu {0} ; longu < lenght_glitch ; longu ++ ) // travaille sur la longuere 
+//                     {
+//                         for (int larg {0}; larg < thinckness_glitch; larg ++) // travaille sur la largeure
+//                         {
+//                             imageGlitch.pixel(width-x0_glitch-longu, y0).r = image.pixel(x0_glitch+longu, height-y0_glitch-larg).r;
+//                             imageGlitch.pixel(width-x0_glitch-longu, y0).b = image.pixel(x0_glitch+longu, height-y0_glitch-larg).b;
+//                             imageGlitch.pixel(width-x0_glitch-longu, y0).g = image.pixel(x0_glitch+longu, height-y0_glitch-larg).g;
+//                         }
+//                     }
+//                 }
+//             else if(x0_glitch > width/2 && y0_glitch > height/2) //haut-drt
+//             {
+
+//             }
+//         }
+//     }
+// } 
 
 void glitch (sil::Image image)
 {
     sil::Image imageGlitch {image};
     int width {image.width()};
     int height {image.height()};
-    int nbr_de_glitch {random_int(10,60)};
-    int count{0};
-    while(count<nbr_de_glitch)
+    int nbr_de_glitch {random_int(70,200)};
+    for (int count {0}; count < nbr_de_glitch; count++)
     {
-        int x0_glitch {random_int(0,width-20)};
-        int y0_glitch {random_int(0,height-20)};
-        int lenght_glitch {random_int(6,10)};
-        int thinckness_glitch {random_int(1,6)};
-        for (int x{x0_glitch}; x < x0_glitch + lenght_glitch; ++x)
+        int x0_glitch {random_int(0,width)};
+        int y0_glitch {random_int(0,height)};
+        int lenght_glitch {random_int(2,50)};
+        int thinckness_glitch {random_int(1,10)};
+        int x0_a_recup {random_int(0,width - lenght_glitch+1)};
+        int y0_a_recup {random_int(0,height - thinckness_glitch+1)};
+        
+        for (int xi{0}; xi < lenght_glitch ; xi++)
         {
-            for (int y{y0_glitch}; y < y0_glitch + thinckness_glitch; ++y)
+            for (int yi{0}; yi < thinckness_glitch; yi++)
             {
-                if(x0_glitch < width/2 && y0_glitch < height/2) //bas-gch
-                {
-                    imageGlitch.pixel(x, y).r = image.pixel(x+width/2, y+height/2).r;
-                    imageGlitch.pixel(x, y).b = image.pixel(x+width/2, y+height/2).b;
-                    imageGlitch.pixel(x, y).g = image.pixel(x+width/2, y+height/2).g;
-                }
-                else if(x0_glitch < width/2 && y0_glitch > height/2) //haut-gch
-                {
-                    imageGlitch.pixel(x, y).r = image.pixel(x+width/2, y-height/2).r;
-                    imageGlitch.pixel(x, y).b = image.pixel(x+width/2, y-height/2).b;
-                    imageGlitch.pixel(x, y).g = image.pixel(x+width/2, y-height/2).g;
-                }
-                else if(x0_glitch > width/2 && y0_glitch < height/2) //bas-drt
-                {
-                    imageGlitch.pixel(x, y).r = image.pixel(x-width/2, y+height/2).r;
-                    imageGlitch.pixel(x, y).b = image.pixel(x-width/2, y+height/2).b;
-                    imageGlitch.pixel(x, y).g = image.pixel(x-width/2, y+height/2).g;
-                }
-                else if(x0_glitch > width/2 && y0_glitch > height/2) //haut-drt
-                {
-                    imageGlitch.pixel(x, y).r = image.pixel(x-width/2, y-height/2).r;
-                    imageGlitch.pixel(x, y).b = image.pixel(x-width/2, y-height/2).b;
-                    imageGlitch.pixel(x, y).g = image.pixel(x-width/2, y-height/2).g;
-                }
+                if (x0_glitch + xi < width && y0_glitch + yi < height)
+                 {
+                    imageGlitch.pixel(x0_glitch+xi, y0_glitch+yi).r = image.pixel(x0_a_recup+xi, y0_a_recup+yi).r;
+                    imageGlitch.pixel(x0_glitch+xi, y0_glitch+yi).b = image.pixel(x0_a_recup+xi, y0_a_recup+yi).b;
+                    imageGlitch.pixel(x0_glitch+xi, y0_glitch+yi).g = image.pixel(x0_a_recup+xi, y0_a_recup+yi).g;
+                 }
             }
         }
-
     }
     imageGlitch.save("output/ex16glitch.png");
 }
@@ -513,6 +613,6 @@ int main()
 //    mosaique1(logo);
 //    mosaique2(logo);
 //    mosaique_miroir(logo);
-    glitch(logo);
+//    glitch(logo);
     return 0;
 }
