@@ -7,6 +7,7 @@
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
+#include <glm/gtx/matrix_transform_2d.hpp>
 //
 
 // Exercice 1 : Ne garder que le vert
@@ -567,8 +568,8 @@ void glitch (sil::Image image)
     int width {image.width()};
     int height {image.height()};
     int nbr_de_glitch {random_int(70,200)};
-    {
     for (int count {0}; count < nbr_de_glitch; count++)
+    {
         int x0_glitch {random_int(0,width)};
         int y0_glitch {random_int(0,height)};
         int lenght_glitch {random_int(2,50)};
@@ -606,6 +607,70 @@ void glitch (sil::Image image)
 //     float NewColor {+255*(bayer_matrix_4x4(x*bayer_n))};
 // }
 
+//  Exercice 18 : vortex
+
+glm::vec2 rotated(glm::vec2 point, glm::vec2 center_of_rotation, float angle)
+{
+    return glm::vec2{glm::rotate(glm::mat3{1.f}, angle) * glm::vec3{point - center_of_rotation, 0.f}} + center_of_rotation;
+}
+
+// void vortex (sil::Image image)
+// {
+//     sil::Image imageVortex {image};
+//     int x_centre {image.width()/2};
+//     int y_centre {image.height()/2};
+//     int width {image.width()};
+//     int height {image.height()};
+
+//     for (int x{0}; x < image.width(); x++)
+//     {
+//         for (int y{0}; y < image.height(); y++)
+//         {
+//             double distance_centre { pow( pow((x- x_centre),2) + pow((y - y_centre),2) , 0.5 )};
+//             double  longueur_max { pow( pow(width,2) + pow( height,2) , 0.5 ) };
+//             glm::vec2 nouveau_point { rotated( glm::vec2{x,y}, {x_centre,y_centre}, 2*M_PI*(distance_centre/longueur_max))};
+//             if ( nouveau_point.x < width && nouveau_point.x > 0 && nouveau_point.y < height && nouveau_point.y > 0 )
+//             {
+//                 imageVortex.pixel(nouveau_point.x, nouveau_point.y).r = image.pixel(x,y).r;
+//                 imageVortex.pixel(nouveau_point.x, nouveau_point.y).b = image.pixel(x,y).b;
+//                 imageVortex.pixel(nouveau_point.x, nouveau_point.y).g = image.pixel(x,y).g;
+//             }
+//         }
+//     }
+//     imageVortex.save("output/ex18vortex.png");
+// }
+
+void vortex (sil::Image image)
+{
+    int x_centre {image.width()/2};
+    int y_centre {image.height()/2};
+    int width {image.width()};
+    int height {image.height()};
+    sil::Image imageVortex {width,height};
+
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            double distance_centre { pow( pow((x- x_centre),2) + pow((y - y_centre),2) , 0.5 )};
+            double  longueur_max { pow( pow(width,2) + pow( height,2) , 0.5 )/2 };
+            glm::vec2 nouveau_point { rotated( glm::vec2{x,y}, {x_centre,y_centre}, 7*M_PI*(distance_centre/longueur_max))};
+            if ( nouveau_point.x < width && nouveau_point.x > 0 && nouveau_point.y < height && nouveau_point.y > 0 )
+            {
+                imageVortex.pixel(x,y).r = image.pixel(nouveau_point.x, nouveau_point.y).r;
+                imageVortex.pixel(x,y).b = image.pixel(nouveau_point.x, nouveau_point.y).b;
+                imageVortex.pixel(x,y).g = image.pixel(nouveau_point.x, nouveau_point.y).g;
+            }
+            else 
+            {
+                imageVortex.pixel(x,y) = glm::vec3(0);
+            }
+        }
+    }
+    imageVortex.save("output/ex18vortex.png");
+}
+
+
 int main()
 {
     //set_random_seed(0);
@@ -629,5 +694,7 @@ int main()
 //    mosaique1(logo);
 //    mosaique2(logo);
 //    mosaique_miroir(logo);
+//    glitch(logo);
+//    vortex(logo);
     return 0;
 }
