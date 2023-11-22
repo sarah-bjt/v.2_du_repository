@@ -45,7 +45,7 @@ void canaux(sil::Image logo)
 
 // Exercice 3 : Noir & Blanc
 
-void blackAndWhite (sil::Image image)
+void blackAndWhite (sil::Image& image)
 {
     for (glm::vec3& color : image.pixels())
     {
@@ -54,7 +54,6 @@ void blackAndWhite (sil::Image image)
         color.r = moy;
         color.b = moy;
     }
-    image.save("output/ex03blackAndWhite.png");
 }
 
 // Exercice 4 : Négatif
@@ -343,19 +342,6 @@ void mosaique2(sil::Image logo)
             }
         }
     }
-    
-    // for (int x{0}; x < logo2.width(); ++x)
-    // {
-    //     for (int y{0}; y < logo.height(); ++y)
-    //     {
-    //         for (int i{0}; i < 5; ++i)
-    //         {
-    //             logo2.pixel(x, y+i*logo.height()).r = logo2.pixel(x, y).r;
-    //             logo2.pixel(x, y+i*logo.height()).b = logo2.pixel(x, y).b;
-    //             logo2.pixel(x, y+i*logo.height()).g = logo2.pixel(x, y).g;
-    //         }
-    //     }
-    // }
     logo2.save("output/ex14mosaique2.png");
 }
 
@@ -594,17 +580,39 @@ void glitch (sil::Image image)
 
 // Exercice 17 : Tramage
 
-// void tramage(sil::Image photo)
-// {
-//     const int bayer_n = 4; 
-//     float bayer_matrix_4x4[][bayer_n] = { 
-//         { -0.5, 0, -0.375, 0.125 }, 
-//         { 0.25, -0.25, 0.375, - 0.125 }, 
-//         { -0.3125, 0.1875, -0.4375, 0.0625 }, 
-//         { 0.4375, -0.625 , 0.3125, -0.1875 }, 
-//         };
-//     float NewColor {+255*(bayer_matrix_4x4(x*bayer_n))};
-// }
+void tramage(sil::Image& photo)
+{
+    blackAndWhite(photo);
+
+    const int bayer_n = 4;
+
+    float bayer_matrix_4x4[][bayer_n] = { 
+        { -0.5, 0, -0.375, 0.125 }, 
+        { 0.25, -0.25, 0.375, - 0.125 }, 
+        { -0.3125, 0.1875, -0.4375, 0.0625 }, 
+        { 0.4375, -0.625 , 0.3125, -0.1875 } };
+
+    for (int y = 0; y < photo.height(); y++)
+    { 
+        for (int x = 0 ; x < photo.width(); x++)
+        {
+            float orig_color = photo.pixel(x, y).r;
+            float bayer_value = bayer_matrix_4x4[y % bayer_n][x % bayer_n]; 
+            float output_color = orig_color + (1 * bayer_value);
+
+            if (output_color < 0.5f)
+            { 
+                photo.pixel(x,y) = glm::vec3(0);
+            }
+            else
+            {
+                photo.pixel(x,y) = glm::vec3(1);
+            }
+        } 
+    }
+    photo.save("output/ex17Tramage.png");
+    
+}
 
 int main()
 {
@@ -616,7 +624,11 @@ int main()
     sil::Image result {345, 300};
 //    onlyGreen(logo);
 //    blueAndRedReverse(logo);
-//    blackAndWhite(logo);
+{
+    sil::Image copie{photo};
+    blackAndWhite(copie);
+    copie.save("output/ex03blackAndWhite.png");
+}
 //    inverteColor(logo);
 //    degrader();
 //    miroir(logo);
@@ -628,6 +640,7 @@ int main()
 //    cercle(50);
 //    mosaique1(logo);
 //    mosaique2(logo);
-//    mosaique_miroir(logo);
+    // mosaique_miroir(logo);
+    tramage(photo);
     return 0;
 }
