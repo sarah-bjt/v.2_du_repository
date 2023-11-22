@@ -153,7 +153,7 @@ void bruite(sil::Image logo)
         logo.save("output/bruite.png");
 };
 
-// Exercice 8 : Rotation de 90°
+// Exercice 8 : Rotation de 90° ATTENTION NE FONCTIONNE PAS
 
 // void rotation90 (sil::Image image, sil::Image result) // attention ne fonctionne pas 
 // {
@@ -235,23 +235,23 @@ void luminosite (sil::Image image)
 
 // Exercice 11 : Disque
 
-// void disque ()
-// {
-//     sil::Image image{500/*width*/, 500/*height*/};
-//     for (int x{0}; x < image.width(); x++)
-//     {
-//         for (int y{0}; y < image.height(); y++)
-//         {
-//             if( pow((x-250),2)+pow((y-250),2)< pow(200,2) )
-//             {
-//                 image.pixel(x,y).g = 1;
-//                 image.pixel(x,y).r = 1;
-//                 image.pixel(x,y).b = 1;
-//             }
-//         }
-//     }
-//     image.save("output/ex11disque.png");
-// }
+void disque ()
+{
+    sil::Image image{500/*width*/, 500/*height*/};
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            if( pow((x-250),2)+pow((y-250),2)< pow(200,2) )
+            {
+                image.pixel(x,y).g = 1;
+                image.pixel(x,y).r = 1;
+                image.pixel(x,y).b = 1;
+            }
+        }
+    }
+    image.save("output/ex11disque.png");
+}
 
 // Exercice 12 : Cercle
 void cercle (int thickness)
@@ -383,9 +383,116 @@ void mosaique_miroir(sil::Image logo)
     logo4.save("output/ex15MosaiqueMiroir.png");
 }
 
+// Exercice 16 : Glitch
+
+
+//                                              glitch avec while
+// void glitch(sil::Image image)  
+// {
+//     sil::Image imageGlitch{image};
+//     int width {image.width()};
+//     for (int y{0}; y < image.height()-1 ; y++)
+//     {
+//         for (int x{0}; x < image.width()-4; x++)
+//         {
+//             int isPixelGlitch {random_int(0,5)};
+//             if (isPixelGlitch == 1 && imageGlitch.pixel(x,y) != image.pixel(x,y))
+//             {
+//                 int longuereGlitch {random_int(5,20)};
+//                 int indiceGlitch {random_int(0,width)};
+//                 int count {0};
+//                 while (count<indiceGlitch)
+//                 {
+//                     imageGlitch.pixel(x,y) = image.pixel(x+5,y+2);
+//                     count += 1;
+//                 }
+//             }
+            
+//         }
+//     }
+//     imageGlitch.save("output/ex16glitch.png");
+// }
+
+//                                         Glitch avec for
+// void glitch(sil::Image image)
+// {
+//     sil::Image imageGlitch{image};
+//     int width {image.width()};
+
+//     for (int y{0}; y < image.height()-10; ++y) 
+//     {
+//         for (int x{0}; x < image.width()-10; ++x) 
+//         {
+//             int isPixelGlitch {random_int(0,10)};
+//             if (isPixelGlitch == 1 && imageGlitch.pixel(x, y).r == image.pixel(x, y).r && imageGlitch.pixel(x, y).b == image.pixel(x, y).b && imageGlitch.pixel(x, y).g == image.pixel(x, y).g) 
+//             {
+//                 int longueurGlitch {30};
+//                 //int longueurGlitch {random_int(10,30)};
+//                 //int indiceGlitch {random_int(0,width)};
+//                 for (int i{0}; i < longueurGlitch ; ++i) 
+//                 {
+//                     imageGlitch.pixel(x, y).r = image.pixel(x+5, y+2).r;
+//                     imageGlitch.pixel(x, y).b = image.pixel(x+5, y+2).b;
+//                     imageGlitch.pixel(x, y).g = image.pixel(x+5, y+2).g;
+//                 }
+//             }
+//         }
+//     }
+
+//     imageGlitch.save("output/ex16glitch.png");
+// }
+
+void glitch (sil::Image image)
+{
+    sil::Image imageGlitch {image};
+    int width {image.width()};
+    int height {image.height()};
+    int nbr_de_glitch {random_int(10,60)};
+    int count{0};
+    while(count<nbr_de_glitch)
+    {
+        int x0_glitch {random_int(0,width-20)};
+        int y0_glitch {random_int(0,height-20)};
+        int lenght_glitch {random_int(6,10)};
+        int thinckness_glitch {random_int(1,6)};
+        for (int x{x0_glitch}; x < x0_glitch + lenght_glitch; ++x)
+        {
+            for (int y{y0_glitch}; y < y0_glitch + thinckness_glitch; ++y)
+            {
+                if(x0_glitch < width/2 && y0_glitch < height/2) //bas-gch
+                {
+                    imageGlitch.pixel(x, y).r = image.pixel(x+width/2, y+height/2).r;
+                    imageGlitch.pixel(x, y).b = image.pixel(x+width/2, y+height/2).b;
+                    imageGlitch.pixel(x, y).g = image.pixel(x+width/2, y+height/2).g;
+                }
+                else if(x0_glitch < width/2 && y0_glitch > height/2) //haut-gch
+                {
+                    imageGlitch.pixel(x, y).r = image.pixel(x+width/2, y-height/2).r;
+                    imageGlitch.pixel(x, y).b = image.pixel(x+width/2, y-height/2).b;
+                    imageGlitch.pixel(x, y).g = image.pixel(x+width/2, y-height/2).g;
+                }
+                else if(x0_glitch > width/2 && y0_glitch < height/2) //bas-drt
+                {
+                    imageGlitch.pixel(x, y).r = image.pixel(x-width/2, y+height/2).r;
+                    imageGlitch.pixel(x, y).b = image.pixel(x-width/2, y+height/2).b;
+                    imageGlitch.pixel(x, y).g = image.pixel(x-width/2, y+height/2).g;
+                }
+                else if(x0_glitch > width/2 && y0_glitch > height/2) //haut-drt
+                {
+                    imageGlitch.pixel(x, y).r = image.pixel(x-width/2, y-height/2).r;
+                    imageGlitch.pixel(x, y).b = image.pixel(x-width/2, y-height/2).b;
+                    imageGlitch.pixel(x, y).g = image.pixel(x-width/2, y-height/2).g;
+                }
+            }
+        }
+
+    }
+    imageGlitch.save("output/ex16glitch.png");
+}
+
 int main()
 {
-    set_random_seed(0);
+    //set_random_seed(0);
     sil::Image logo{"images/logo.png"};
     sil::Image imagefinal{500/*width*/, 500/*height*/};
     sil::Image photo{"images/photo_faible_contraste.jpg"};
@@ -403,7 +510,9 @@ int main()
 //    luminosite(photoc);
 //    disque();
 //    cercle(50);
+//    mosaique1(logo);
 //    mosaique2(logo);
-    mosaique_miroir(logo);
+//    mosaique_miroir(logo);
+    glitch(logo);
     return 0;
 }
