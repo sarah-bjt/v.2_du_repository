@@ -334,25 +334,28 @@ void mosaique2(sil::Image logo)
         {
             for (int i{0}; i < 5; ++i)
             {
-                logo2.pixel(x+i*logo.width(), y).r = logo.pixel(x, y).r;
-                logo2.pixel(x+i*logo.width(), y).b = logo.pixel(x, y).b;
-                logo2.pixel(x+i*logo.width(), y).g = logo.pixel(x, y).g;
+            for (int j{0}; j < 5; ++j)
+                {
+                    logo2.pixel(x+i*logo.width(), y+j*logo.height()).r = logo.pixel(x, y).r;
+                    logo2.pixel(x+i*logo.width(), y+j*logo.height()).b = logo.pixel(x, y).b;
+                    logo2.pixel(x+i*logo.width(), y+j*logo.height()).g = logo.pixel(x, y).g;
+                }
             }
         }
     }
     
-    for (int x{0}; x < logo2.width(); ++x)
-    {
-        for (int y{0}; y < logo.height(); ++y)
-        {
-            for (int i{0}; i < 5; ++i)
-            {
-                logo2.pixel(x, y+i*logo.height()).r = logo2.pixel(x, y).r;
-                logo2.pixel(x, y+i*logo.height()).b = logo2.pixel(x, y).b;
-                logo2.pixel(x, y+i*logo.height()).g = logo2.pixel(x, y).g;
-            }
-        }
-    }
+    // for (int x{0}; x < logo2.width(); ++x)
+    // {
+    //     for (int y{0}; y < logo.height(); ++y)
+    //     {
+    //         for (int i{0}; i < 5; ++i)
+    //         {
+    //             logo2.pixel(x, y+i*logo.height()).r = logo2.pixel(x, y).r;
+    //             logo2.pixel(x, y+i*logo.height()).b = logo2.pixel(x, y).b;
+    //             logo2.pixel(x, y+i*logo.height()).g = logo2.pixel(x, y).g;
+    //         }
+    //     }
+    // }
     logo2.save("output/ex14mosaique2.png");
 }
 
@@ -360,27 +363,26 @@ void mosaique2(sil::Image logo)
 
 void mosaique_miroir(sil::Image logo)
 {
-    mosaique2(logo);
-    sil::Image logo3 {"output/ex14mosaique2.png"};
-    sil::Image logo4 {logo3};
+    sil::Image logo2 {logo.width()*5, logo.height()*5};
 
-    for (int x{0}; x < logo3.width(); ++x)
+    for (int x{0}; x < logo2.width(); x += 1)
     {
-        for (int y{0}; y < logo3.height(); ++y)
+        for (int y{0}; y < logo2.height(); y += 1)
         {
-            for (int i{1}; i < 3; ++i)
+            int NewX {x%logo.width()};
+            int NewY {y%logo.height()};
+            if ((x/logo.width()) % 2 == 1)
             {
-                for (int j{1}; j < 3; ++j)
-                {
-                    float reverse_x {i*logo.width() -1.f -x};
-                    logo3.pixel(x+j*logo.width(), y).r = logo4.pixel(reverse_x, y).r;
-                    logo3.pixel(x+j*logo.width(), y).b = logo4.pixel(reverse_x, y).b;
-                    logo3.pixel(x+j*logo.width(), y).g = logo4.pixel(reverse_x, y).g;
-                }
+                NewX = {logo.width() - 1 - NewX} ;
             }
+            if ((y/logo.height()) % 2 == 1)
+            {
+               NewY = {logo.height() - 1 - NewY};
+            }
+            logo2.pixel(x, y) = logo.pixel(NewX, NewY);
         }
     }
-    logo4.save("output/ex15MosaiqueMiroir.png");
+    logo2.save("output/ex15MosaiqueMiroir.png");
 }
 
 // Exercice 16 : Glitch
@@ -494,15 +496,15 @@ void mosaique_miroir(sil::Image logo)
 // {
 //     sil::Image imageGlitch {image};
 //     int width {image.width()};
-//     int height {image.height()};
 //     int nbr_de_glitch {random_int(30,200)};
+//     int height {image.height()};
 //     int count{0};
 //     //int x0_glitch {random_int(0,width-20)};
 //     //int y0_glitch {random_int(0,height-20)};
 //     //int lenght_glitch {random_int(6,10)};
 //     //int thinckness_glitch {random_int(1,6)};
-//     for (int x{0}; x < image.width(); x++)
 //     {
+//     for (int x{0}; x < image.width(); x++)
 //         for (int y{0}; y < image.height(); y++)
 //         {
 //             int isPixelGlitch {random_int(0,10)};
@@ -540,10 +542,10 @@ void mosaique_miroir(sil::Image logo)
 //                     }
 //                 }
 //                 else if(x0_glitch > width/2 && y0_glitch < height/2) //si glitch en bas-drt
-//                 {
 //                     for (int longu {0} ; longu < lenght_glitch ; longu ++ ) // travaille sur la longuere 
-//                     {
+//                 {
 //                         for (int larg {0}; larg < thinckness_glitch; larg ++) // travaille sur la largeure
+//                     {
 //                         {
 //                             imageGlitch.pixel(width-x0_glitch-longu, y0).r = image.pixel(x0_glitch+longu, height-y0_glitch-larg).r;
 //                             imageGlitch.pixel(width-x0_glitch-longu, y0).b = image.pixel(x0_glitch+longu, height-y0_glitch-larg).b;
@@ -565,8 +567,8 @@ void glitch (sil::Image image)
     int width {image.width()};
     int height {image.height()};
     int nbr_de_glitch {random_int(70,200)};
-    for (int count {0}; count < nbr_de_glitch; count++)
     {
+    for (int count {0}; count < nbr_de_glitch; count++)
         int x0_glitch {random_int(0,width)};
         int y0_glitch {random_int(0,height)};
         int lenght_glitch {random_int(2,50)};
@@ -581,14 +583,28 @@ void glitch (sil::Image image)
                 if (x0_glitch + xi < width && y0_glitch + yi < height)
                  {
                     imageGlitch.pixel(x0_glitch+xi, y0_glitch+yi).r = image.pixel(x0_a_recup+xi, y0_a_recup+yi).r;
-                    imageGlitch.pixel(x0_glitch+xi, y0_glitch+yi).b = image.pixel(x0_a_recup+xi, y0_a_recup+yi).b;
                     imageGlitch.pixel(x0_glitch+xi, y0_glitch+yi).g = image.pixel(x0_a_recup+xi, y0_a_recup+yi).g;
+                    imageGlitch.pixel(x0_glitch+xi, y0_glitch+yi).b = image.pixel(x0_a_recup+xi, y0_a_recup+yi).b;
                  }
             }
         }
     }
     imageGlitch.save("output/ex16glitch.png");
 }
+
+// Exercice 17 : Tramage
+
+// void tramage(sil::Image photo)
+// {
+//     const int bayer_n = 4; 
+//     float bayer_matrix_4x4[][bayer_n] = { 
+//         { -0.5, 0, -0.375, 0.125 }, 
+//         { 0.25, -0.25, 0.375, - 0.125 }, 
+//         { -0.3125, 0.1875, -0.4375, 0.0625 }, 
+//         { 0.4375, -0.625 , 0.3125, -0.1875 }, 
+//         };
+//     float NewColor {+255*(bayer_matrix_4x4(x*bayer_n))};
+// }
 
 int main()
 {
@@ -613,6 +629,5 @@ int main()
 //    mosaique1(logo);
 //    mosaique2(logo);
 //    mosaique_miroir(logo);
-//    glitch(logo);
     return 0;
 }
