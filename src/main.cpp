@@ -24,17 +24,6 @@ void onlyGreen (sil::Image image)
 
 // Exercice 2 : Echanger les canaux
 
-void blueAndRedReverse (sil::Image image)
-{
-    for (glm::vec3& color : image.pixels())
-    {
-        float a {color.r};
-        color.r = color.b;
-        color.b = a;
-    }
-    image.save("output/ex02blueAndRedReverse.png");    
-}
-
 void canaux(sil::Image logo)
 {
     for(glm::vec3& color : logo.pixels())
@@ -50,10 +39,8 @@ void blackAndWhite (sil::Image& image)
 {
     for (glm::vec3& color : image.pixels())
     {
-        float moy {(color.r+color.b+color.g)/3};
-        color.g = moy;
-        color.r = moy;
-        color.b = moy;
+        float const moy {(color.r+color.b+color.g)/3};
+        color = glm::vec3{moy};
     }
 }
 
@@ -63,9 +50,7 @@ void inverteColor (sil::Image image)
 {
     for (glm::vec3& color : image.pixels())
     {
-        color.g = 1 - color.g;
-        color.b = 1 - color.b;
-        color.r = 1 - color.r;
+        color = 1.f - color;
     }
     image.save("output/ex04inverteColor.png");    
 }
@@ -74,12 +59,12 @@ void inverteColor (sil::Image image)
 
 void degrader ()
 {
-    sil::Image image{300/*width*/, 200/*height*/};
-    for (float x{0}; x < image.width(); x++)
+    sil::Image image{500/*width*/, 200/*height*/};
+    for (int x{0}; x < image.width(); x++)
     {
-        for (float y{0}; y < image.height(); y++)
+        for (int y{0}; y < image.height(); y++)
         {
-            float couleur  = x/300;
+            float couleur  = static_cast<float>(x)/image.width();
             image.pixel(x,y).r = couleur;
             image.pixel(x,y).b = couleur;
             image.pixel(x,y).g = couleur;   
@@ -97,9 +82,7 @@ void miroir (sil::Image image)
     {
         for (int y{0}; y < image.height(); y++)
         {
-            copyImage.pixel(x, y).r = image.pixel(image.width()-1-x, y).r;
-            copyImage.pixel(x, y).b = image.pixel(image.width()-1-x, y).b;
-            copyImage.pixel(x, y).g = image.pixel(image.width()-1-x, y).g;
+            copyImage.pixel(x, y) = image.pixel(image.width()-1-x, y);
         }
     }
     copyImage.save("output/ex06miroir.png");   
@@ -113,9 +96,7 @@ void miroir2(sil::Image logo)
         for (int y {0}; y < logo2.height(); ++y)
         {
             float variable2 {logo2.width() - 1.f - x};
-            logo.pixel(x, y).r = logo2.pixel(variable2, y).r;
-            logo.pixel(x, y).b = logo2.pixel(variable2, y).b;
-            logo.pixel(x, y).g = logo2.pixel(variable2, y).g;
+            logo.pixel(x, y) = logo2.pixel(variable2, y);
         }
     }
         logo.save("output/ex06miroir02.png");
@@ -127,8 +108,9 @@ void imageBruit (sil::Image image)
 {
     for (glm::vec3& color : image.pixels())
     {
-        int isPixelBruit {random_int(0, 4)};
-        if (isPixelBruit == 1)
+        // int isPixelBruit {random_int(0, 4)};
+        float rand{random_float(0.f, 1.f)};
+        if (rand < 0.28f)
         {
             color.r =  random_float(0, 1);
             color.b =  random_float(0, 1);
@@ -140,17 +122,15 @@ void imageBruit (sil::Image image)
 
 void bruite(sil::Image logo)
 {
-    int i {0};
-    while(i < 200)
+    for(int i{0}; i < 200; i++)
     {
-        int x {random_int(0, logo.width()+1)};
-        int y {random_int(0, logo.height()+1)};
+        int x {random_int(0, logo.width())};
+        int y {random_int(0, logo.height())};
         logo.pixel(x, y).r = random_float(0,1);
         logo.pixel(x, y).b = random_float(0,1);
         logo.pixel(x, y).g = random_float(0,1);
-        i ++;
     }
-        logo.save("output/bruite.png");
+    logo.save("output/bruite.png");
 };
 
 // Exercice 8 : Rotation de 90° ATTENTION NE FONCTIONNE PAS
@@ -193,18 +173,19 @@ void bruite(sil::Image logo)
 void RGBsplit (sil::Image image)
 {
     sil::Image copy {image.width(),image.height()};
-    for (int x{0}; x < image.width()-(image.width()/9); x++) // pour le rouge vers la drt
+    int offset{image.width()/9};
+    for (int x{0}; x < image.width()-offset; x++) // pour le rouge vers la drt
     {
         for (int y{0}; y < image.height(); y++)
         {
-            copy.pixel(x+(image.width()/9), y).r = image.pixel(x,y).r;
+            copy.pixel(x+offset, y).r = image.pixel(x,y).r;
         }
     }
-    for (int x{(image.width()/9)}; x< image.width(); x++) // pour le bleu vers la gch
+    for (int x{(offset)}; x< image.width(); x++) // pour le bleu vers la gch
     {
         for (int y{0}; y < image.height(); y++)
         {
-            copy.pixel(x - (image.width()/9), y).b = image.pixel(x,y).b;
+            copy.pixel(x - (offset), y).b = image.pixel(x,y).b;
         }
     }
     for (int x{}; x< image.width(); x++) // pour le vert
@@ -224,11 +205,7 @@ void luminosite (sil::Image image)
 
     for (glm::vec3& color : image.pixels())
     {
-        {
-            color.g = pow(color.g, 0.6);
-            color.r = pow(color.r, 0.6);
-            color.b = pow(color.b, 0.6);
-        }
+        color = glm::pow(color, glm::vec3{0.6});
     }
     image.save("output/ex10luminosite.png");
 }
@@ -242,7 +219,7 @@ void disque ()
     {
         for (int y{0}; y < image.height(); y++)
         {
-            if( pow((x-250),2)+pow((y-250),2)< pow(200,2) )
+            if( pow((x-image.width()/2),2)+pow((y-image.height()/2),2)< pow(200,2) )
             {
                 image.pixel(x,y).g = 1;
                 image.pixel(x,y).r = 1;
@@ -261,7 +238,8 @@ void cercle (int thickness)
     {
         for (int y{0}; y < image.height(); y++)
         {
-            if (pow((x-250),2)+pow((y-250),2)< pow(200,2) && pow((x-250),2)+pow((y-250),2)> pow(200-thickness,2) )
+            float const distance{std::pow((x-250.f),2.f)+std::pow((y-250.f),2.f)};
+            if (distance< pow(200,2) && distance> pow(200-thickness,2) )
             {
                 image.pixel(x,y).g = 1;
                 image.pixel(x,y).r = 1;
@@ -291,13 +269,12 @@ void dessineCercle( sil::Image& image, float x0 , float y0 , float rayon, float 
 
 void rosace(sil::Image image)
 {
-    dessineCercle (image, 250,250,100,10); //centre
-    dessineCercle (image,250-95,250,100,10); //gch
-    dessineCercle (image,250+95,250,100,10); //dte
-    dessineCercle (image,250 +95*std::cos((2*M_PI)/3.0),250 +95*std::sin((2*M_PI)/3),100,10); 
-    dessineCercle (image,250 +95*std::cos((M_PI)/3.0),250 +95*std::sin((M_PI)/3),100,10); 
-    dessineCercle (image,250 +95*std::cos((4*M_PI)/3.0),250 +95*std::sin((4*M_PI)/3),100,10); 
-    dessineCercle (image,250 +95*std::cos((5*M_PI)/3.0),250 +95*std::sin((5*M_PI)/3),100,10); 
+    dessineCercle (image, 250,250,100,2); //centre
+    int nb_circles{50};
+    for(int i {0}; i < nb_circles; ++i)
+    {
+        dessineCercle (image,250 +95*std::cos((i*M_PI*2)/nb_circles),250 +95*std::sin((i*M_PI*2)/nb_circles),100,2);
+    }
     image.save("output/ex13rosace.png");
 }
 
@@ -336,9 +313,7 @@ void mosaique2(sil::Image logo)
             {
             for (int j{0}; j < 5; ++j)
                 {
-                    logo2.pixel(x+i*logo.width(), y+j*logo.height()).r = logo.pixel(x, y).r;
-                    logo2.pixel(x+i*logo.width(), y+j*logo.height()).b = logo.pixel(x, y).b;
-                    logo2.pixel(x+i*logo.width(), y+j*logo.height()).g = logo.pixel(x, y).g;
+                    logo2.pixel(x+i*logo.width(), y+j*logo.height()) = logo.pixel(x, y);
                 }
             }
         }
@@ -690,11 +665,7 @@ void vortex (sil::Image image)
 void normalisationHistogramme (sil::Image image)
 {
     float low_brightness {1};
-    int low_x {0};
-    int low_y {0};
     float hight_brightness {0};
-    int hight_x {0};
-    int hight_y {0};
     for (int x{0}; x < image.width(); x++)
     {
         for (int y{0}; y < image.height(); y++)
@@ -703,22 +674,16 @@ void normalisationHistogramme (sil::Image image)
             if (brightness_value >= hight_brightness)
             {
                 hight_brightness = brightness_value;
-                hight_x = x;
-                hight_y = y;
             }
             else if (brightness_value <= low_brightness)
             {
                 low_brightness = brightness_value;
-                low_x = x;
-                low_y = y;
             }
         } 
     }
     for (glm::vec3& color : image.pixels())
     {
-            color.g = color.g * (1/hight_brightness) - low_brightness;
-            color.r = color.r * (1/hight_brightness) - low_brightness;
-            color.b = color.b * (1/hight_brightness) - low_brightness;
+            color = (color - low_brightness) / (hight_brightness - low_brightness) ;
     } 
     image.save("output/ex19normalisationHistogramme.png"); 
 }
@@ -739,7 +704,7 @@ void convolutions(sil::Image logo)
             {
                 for (int j {0}; j < 2; j += 1)
                 {
-                    
+
                 }
             }
             logo2.pixel(x,y) = (logo2.pixel(x+1,y) + logo2.pixel(x-1,y) + logo2.pixel(x,y+1) + logo2.pixel(x,y-1) + logo2.pixel(x+1, y+1) + logo2.pixel(x-1, y-1) + logo2.pixel(x+1, y-1) +logo2.pixel(x-1, y+1))/glm::vec3(8) ;
@@ -780,7 +745,9 @@ int main()
 //    mosaique_miroir(logo);
 //    glitch(logo);
 //    vortex(logo);
-//    normalisationHistogramme(photo);
-    convolutions(logo);
+   normalisationHistogramme(photo);
+    // convolutions(logo);
+    // bruite(logo);
+    // rosace(sil::Image{500, 500});
     return 0;
 }
