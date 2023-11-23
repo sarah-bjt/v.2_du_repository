@@ -687,7 +687,6 @@ void vortex (sil::Image image)
 // }
 
 
-
 void normalisationHistogramme (sil::Image image)
 {
     float low_brightness {1};
@@ -726,6 +725,30 @@ void normalisationHistogramme (sil::Image image)
 
 
 
+// Exercice 20 : Convolutions
+
+void convolutions(sil::Image logo)
+{
+    sil::Image logo2 {logo};
+    for (int x {1}; x < logo2.width()-1; x += 1)
+    {
+        for (int y {1}; y < logo2.height()-1; y += 1)
+        {
+            float Somme {};
+            for (int i {0}; i < 2; i += 1)
+            {
+                for (int j {0}; j < 2; j += 1)
+                {
+                    
+                }
+            }
+            logo2.pixel(x,y) = (logo2.pixel(x+1,y) + logo2.pixel(x-1,y) + logo2.pixel(x,y+1) + logo2.pixel(x,y-1) + logo2.pixel(x+1, y+1) + logo2.pixel(x-1, y-1) + logo2.pixel(x+1, y-1) +logo2.pixel(x-1, y+1))/glm::vec3(8) ;
+        }
+    }
+    logo2.save("output/ex20Convolutions.png");
+};
+
+
 int main()
 {
     //set_random_seed(0);
@@ -736,11 +759,11 @@ int main()
     sil::Image result {345, 300};
 //    onlyGreen(logo);
 //    blueAndRedReverse(logo);
-{
-    sil::Image copie{photo};
-    blackAndWhite(copie);
-    copie.save("output/ex03blackAndWhite.png");
-}
+// {
+//     sil::Image copie{photo};
+//     blackAndWhite(copie);
+//     copie.save("output/ex03blackAndWhite.png");
+// }
 //    inverteColor(logo);
 //    degrader();
 //    miroir(logo);
@@ -758,5 +781,6 @@ int main()
 //    glitch(logo);
 //    vortex(logo);
 //    normalisationHistogramme(photo);
+    convolutions(logo);
     return 0;
 }
