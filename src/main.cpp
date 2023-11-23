@@ -745,7 +745,7 @@ int main()
 //    mosaique_miroir(logo);
 //    glitch(logo);
 //    vortex(logo);
-   normalisationHistogramme(photo);
+//   normalisationHistogramme(photo);
     // convolutions(logo);
     // bruite(logo);
     // rosace(sil::Image{500, 500});
