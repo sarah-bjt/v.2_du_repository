@@ -713,6 +713,30 @@ void convolutions(sil::Image logo)
     logo2.save("output/ex20Convolutions.png");
 };
 
+// Exercice 21 : Fractale 
+// Exercice Fractale :
+
+void fractale (sil::Image image)
+{
+
+   for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        { 
+            std::complex<float> c {((4*x)/500)- 2  , y.f};
+            int count {0};
+            do {
+                std::complex<float> z {0.f , 0.f};
+                z = z * z + c ;
+                image.pixel(x,y)color = 1
+                count ++;
+
+            } while (std::abs(z) < 2);
+        } 
+    }  
+    image.save("output/ex22fractale.png");
+}
+
 
 int main()
 {
