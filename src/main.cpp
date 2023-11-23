@@ -7,6 +7,7 @@
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
+#include <complex>
 #include <glm/gtx/matrix_transform_2d.hpp>
 //
 
@@ -714,7 +715,6 @@ void convolutions(sil::Image logo)
 };
 
 // Exercice 21 : Fractale 
-// Exercice Fractale :
 
 void fractale (sil::Image image)
 {
@@ -723,12 +723,13 @@ void fractale (sil::Image image)
     {
         for (int y{0}; y < image.height(); y++)
         { 
-            std::complex<float> c {((4*x)/500)- 2  , y.f};
+            std::complex<float> c {((4*x)/500)- 2  ,y};
+            std::complex<float> z {0,0};
             int count {0};
             do {
                 std::complex<float> z {0.f , 0.f};
                 z = z * z + c ;
-                image.pixel(x,y)color = 1
+                
                 count ++;
 
             } while (std::abs(z) < 2);
@@ -773,5 +774,6 @@ int main()
     // convolutions(logo);
     // bruite(logo);
     // rosace(sil::Image{500, 500});
+    fractale(imagefinal);
     return 0;
 }
