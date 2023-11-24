@@ -696,19 +696,32 @@ void normalisationHistogramme (sil::Image image)
 void convolutions(sil::Image logo)
 {
     sil::Image logo2 {logo};
-    for (int x {1}; x < logo2.width()-1; x += 1)
-    {
-        for (int y {1}; y < logo2.height()-1; y += 1)
-        {
-            float Somme {};
-            for (int i {0}; i < 2; i += 1)
-            {
-                for (int j {0}; j < 2; j += 1)
-                {
 
+    float kernel[3][3] = {{ 1.f/9.f, 1.f/9.f, 1.f/9.f }, 
+                          { 1.f/9.f, 1.f/9.f, 1.f/9.f }, 
+                          { 1.f/9.f, 1.f/9.f, 1.f/9.f }};
+
+    float moy {};
+
+    for (int x {0}; x < logo2.width(); x += 1)
+    {
+        for (int y {0}; y < logo2.height(); y += 1)
+        {
+            for (int x_offset {-1}; x_offset < 1; x_offset++)
+            {
+                for (int y_offset {-1}; y_offset < 1; y_offset++)
+                {
+                    if (x < logo2.width()-1 || y < logo2.height())
+                    {
+                        glm::vec3(moy) = logo2.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+                    }
+                    else
+                    {
+                        glm::vec3(moy) = logo2.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+                    }
                 }
             }
-            logo2.pixel(x,y) = (logo2.pixel(x+1,y) + logo2.pixel(x-1,y) + logo2.pixel(x,y+1) + logo2.pixel(x,y-1) + logo2.pixel(x+1, y+1) + logo2.pixel(x-1, y-1) + logo2.pixel(x+1, y-1) +logo2.pixel(x-1, y+1))/glm::vec3(8) ;
+            logo2.pixel(x, y) = glm::vec3(moy);
         }
     }
     logo2.save("output/ex20Convolutions.png");
@@ -758,6 +771,7 @@ int main()
 //    degrader();
 //    miroir(logo);
 //    imageBruit(logo);
+//    bruite(logo);
 //    rotation90(logo,result); //attention ne fonctionne pas
 //    RGBsplit(logo);
 //    luminosite(photoc);
