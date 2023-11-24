@@ -701,27 +701,27 @@ void convolutions(sil::Image image)
                           { 1.f/9.f, 1.f/9.f, 1.f/9.f }, 
                           { 1.f/9.f, 1.f/9.f, 1.f/9.f }};
 
-    glm::vec3 moy {};
-
     for (int x {0}; x < image2.width(); x += 1)
     {
         for (int y {0}; y < image2.height(); y += 1)
         {
-            for (int x_offset {-1}; x_offset < 1; x_offset++)
+            glm::vec3 moy {};
+
+            for (int x_offset {-1}; x_offset < 2; x_offset++)
             {
-                for (int y_offset {-1}; y_offset < 1; y_offset++)
+                for (int y_offset {-1}; y_offset < 2; y_offset++)
                 {
                     if (x < image2.width()-1 && x > 0 && y < image2.height()-1 && y > 0)
                     {
-                        moy = image2.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+                        moy += image.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
                     }
                     else
                     {
-                        moy = glm::vec3(0);
+                        moy += glm::vec3(0);
                     }
                 }
             }
-            image2.pixel(x, y) = glm::vec3(moy);
+            image2.pixel(x, y) = moy;
         }
     }
     image2.save("output/ex20Convolutions.png");
@@ -746,51 +746,123 @@ void fractale (sil::Image image)
             if (std::abs(z) >= 2)
             {
                 image.pixel(x, y) = glm::vec3(0 + count/45.f);
-            }
-            else 
+        } 
+else 
             {
                 image.pixel(x, y) = glm::vec3(1);
-            }
-        } 
+    }  
+    } 
     }  
     image.save("output/ex21fractale.png");
 }
 
 // Exercice 22 : Netteté, contours, ect
 
-// void contours(sil::Image image)
-// {
-//     sil::Image image2 {image};
+void emboss(sil::Image image)
+{
+    sil::Image image2 {image};
 
-//     float kernel[3][3] = {{ -2.f, -1.f, 0.f }, 
-//                           { -1.f, 1.f, 1.f }, 
-//                           { 0.f, 1.f, 2.f }};
+    float kernel[3][3] = {{ -2.f, -1.f, 0.f }, 
+                          { -1.f, 1.f, 1.f }, 
+                          { 0.f, 1.f, 2.f }};
 
-//     float moy {};
+   for (int x {0}; x < image2.width(); x += 1)
+    {
+        for (int y {0}; y < image2.height(); y += 1)
+        {
+            glm::vec3 moy {};
 
-//     for (int x {0}; x < image2.width(); x += 1)
-//     {
-//         for (int y {0}; y < image2.height(); y += 1)
-//         {
-//             for (int x_offset {-1}; x_offset < 1; x_offset++)
-//             {
-//                 for (int y_offset {-1}; y_offset < 1; y_offset++)
-//                 {
-//                     if (x < image2.width()-1 || y < image2.height())
-//                     {
-//                         glm::vec3(moy) = image2.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
-//                     }
-//                     else
-//                     {
-//                         glm::vec3(moy) = glm::vec3(0);
-//                     }
-//                 }
-//             }
-//             image2.pixel(x, y) = glm::vec3(moy);
-//         }
-//     }
-//     image2.save("output/ex22Netteté.png");
-// }
+            for (int x_offset {-1}; x_offset < 2; x_offset++)
+            {
+                for (int y_offset {-1}; y_offset < 2; y_offset++)
+                {
+                    if (x < image2.width()-1 && x > 0 && y < image2.height()-1 && y > 0)
+                    {
+                        moy += image.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+                    }
+                    else
+                    {
+                        moy += glm::vec3(0);
+                    }
+                }
+            }
+            image2.pixel(x, y) = moy;
+        }
+    }
+    image2.save("output/ex22Emboss.png");
+}
+
+// Exercice 23 : Outline
+
+void outline(sil::Image image)
+{
+    sil::Image image2 {image};
+
+    float kernel[3][3] = {{ -1.f, -1.f, -1.f }, 
+                          { -1.f, 8.f, -1.f }, 
+                          { -1.f, -1.f, -1.f }};
+
+   for (int x {0}; x < image2.width(); x += 1)
+    {
+        for (int y {0}; y < image2.height(); y += 1)
+        {
+            glm::vec3 moy {};
+
+            for (int x_offset {-1}; x_offset < 2; x_offset++)
+            {
+                for (int y_offset {-1}; y_offset < 2; y_offset++)
+                {
+                    if (x < image2.width()-1 && x > 0 && y < image2.height()-1 && y > 0)
+                    {
+                        moy += image.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+                    }
+                    else
+                    {
+                        moy += glm::vec3(0);
+                    }
+                }
+            }
+            image2.pixel(x, y) = moy;
+        }
+    }
+    image2.save("output/ex23Outline.png");
+}
+
+// Exercice 24 : Sharpen
+
+void sharpen(sil::Image image)
+{
+    sil::Image image2 {image};
+
+    float kernel[3][3] = {{ 0.f, -1.f, 0.f }, 
+                          { -1.f, 5.f, -1.f }, 
+                          { 0.f, -1.f, 0.f }};
+
+   for (int x {0}; x < image2.width(); x += 1)
+    {
+        for (int y {0}; y < image2.height(); y += 1)
+        {
+            glm::vec3 moy {};
+
+            for (int x_offset {-1}; x_offset < 2; x_offset++)
+            {
+                for (int y_offset {-1}; y_offset < 2; y_offset++)
+                {
+                    if (x < image2.width()-1 && x > 0 && y < image2.height()-1 && y > 0)
+                    {
+                        moy += image.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+                    }
+                    else
+                    {
+                        moy += glm::vec3(0);
+                    }
+                }
+            }
+            image2.pixel(x, y) = moy;
+        }
+    }
+    image2.save("output/ex24Sharpen.png");
+}
 
 
 int main()
@@ -832,10 +904,12 @@ int main()
 //    glitch(logo);
 //    vortex(logo);
 //   normalisationHistogramme(photo);
-    convolutions(logo);
+    // convolutions(logo);
     // bruite(logo);
     // rosace(sil::Image{500, 500});
     // fractale(imagefinal);
-    // contours(logo);
+    // emboss(logo);
+    // outline(logo);
+    // sharpen(logo);
     return 0;
 }
