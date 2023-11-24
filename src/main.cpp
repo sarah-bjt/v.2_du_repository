@@ -729,27 +729,32 @@ void convolutions(sil::Image image)
 
 // Exercice 21 : Fractale 
 
-// void fractale (sil::Image image)
-// {
+void fractale (sil::Image image)
+{
+   for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        { 
+            std::complex<float> c {((4*static_cast<float>(x))/500)- 2  ,((4*static_cast<float>(y))/500)-2};
+            std::complex<float> z {0,0};
+            int count {0};
+            do {
+                z = z * z + c;
+                count ++;
 
-//    for (int x{0}; x < image.width(); x++)
-//     {
-//         for (int y{0}; y < image.height(); y++)
-//         { 
-//             std::complex<float> c {((4*x)/500)- 2  ,y};
-//             std::complex<float> z {0,0};
-//             int count {0};
-//             do {
-//                 std::complex<float> z {0.f , 0.f};
-//                 z = z * z + c ;
-                
-//                 count ++;
-
-//             } while (std::abs(z) < 2);
-//         } 
-//     }  
-//     image.save("output/ex22fractale.png");
-// }
+            } while (std::abs(z) < 2 && count< 50);
+            if (std::abs(z) >= 2)
+            {
+                image.pixel(x, y) = glm::vec3(0 + count/45.f);
+            }
+            else 
+            {
+                image.pixel(x, y) = glm::vec3(1);
+            }
+        } 
+    }  
+    image.save("output/ex21fractale.png");
+}
 
 // Exercice 22 : Netteté, contours, ect
 
@@ -809,7 +814,7 @@ int main()
 //    miroir(logo);
 //    imageBruit(logo);
 //    bruite(logo);
-//    rotation90(logo,result); //attention ne fonctionne pas
+//   rotation90(logo,result); //attention ne fonctionne pas
 //    RGBsplit(logo);
 //    luminosite(photoc);
 //    disque();

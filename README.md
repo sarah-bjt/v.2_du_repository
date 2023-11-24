@@ -2,35 +2,40 @@
 ## Beaujault Sarah & Jan Agathe
 
 ### Exercice 1 : Ne garder que le vert
-
 ![image](./images/logo.png) ![image](./output/ex01onlyGreen.png)
-
 ### Exercice 2 : échange les canaux
 
-![image](./images/logo.png) ![image](./output/ex02blueAndRedReverse.png)
-
 ### Exercice 3 : Noir et blanc /
-
 ![image](./images/logo.png) ![image](./output/ex03blackAndWhite.png)
-
-### Exercice 4 : Négatif /
-### Exercice 5 : Dégradé
-### Exercice 6 : Miroir /
-### Exercice 7 : Image Bruité /
-### Exercice 8 : Rotation 90°
-### Exercice 9 : RGB Split
-### Exercice 10 : Luminosité
-### Exercice 11 : Disque
-### Exercice 12 : Cercle
-### Exercice 13 : Rosace
-### Exercice 14 : Mosaïque /
-### Exercice 15 : Mosaïque miroir /
-### Exercice 16 : Glitch
-### Exercice 17 : Tramage /
-### Exercice 18 : Vortex
-### Exercice 19 : Normalisation de l'Histogramme
-### Exercice 20 : Convolution /
-### Exercice 21 : Fractale
+### Exercice 4 : Négatif A
+### Exercice 5 : Dégradé S
+![image](./output/ex05degrader.png)
+### Exercice 6 : Miroir A
+### Exercice 7 : Image Bruité A S
+![image](./output/ex07imageBruit.png)
+### Exercice 8 : Rotation 90° S
+![image]
+### Exercice 9 : RGB Split S
+![image](./output/ex09RGBsplit.png)
+### Exercice 10 : Luminosité S
+![image](./output/ex10luminosite.png)
+### Exercice 11 : Disque S
+![image](./output/ex11disque.png)
+### Exercice 12 : Cercle S
+![image](./output/ex12cercle.png)
+### Exercice 13 : Rosace S
+![image](./output/ex13rosace.png)
+### Exercice 14 : MOsaïque A
+### Exercice 15 : Mosaïque miroir A
+### Exercice 16 : Glitch S
+![image](./output/ex16glitch.png)
+### Exercice 17 : Tramage A
+### Exercice 18 : Vortex S
+![image](./output/ex18vortex.png)
+### Exercice 19 : Normalisation de l'Histogramme S
+![image](./output/ex19normalisationHistogramme.png)
+### Exercice 20 : Convolution A
+### Exercice 21 : Fractale S
 
 *Italique*
 
