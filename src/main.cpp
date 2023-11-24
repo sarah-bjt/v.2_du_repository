@@ -865,6 +865,20 @@ void sharpen(sil::Image image)
 }
 
 
+// Exercice Tri de pixels
+
+void triPixels {sil::Image image}
+{
+    sil::Image copyImage {image};
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        { 
+        }
+    }    
+    
+}
+
 int main()
 {
     //set_random_seed(0);
