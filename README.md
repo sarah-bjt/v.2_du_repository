@@ -2,25 +2,34 @@
 ## Beaujault Sarah & Jan Agathe
 
 ### Exercice 1 : Ne garder que le vert
+
+![image](./images/logo.png) ![image](./output/ex01onlyGreen.png)
+
 ### Exercice 2 : échange les canaux
-### Exercice 3 : Noir et blanc
-### Exercice 4 : Négatif
+
+![image](./images/logo.png) ![image](./output/ex02blueAndRedReverse.png)
+
+### Exercice 3 : Noir et blanc /
+
+![image](./images/logo.png) ![image](./output/ex03blackAndWhite.png)
+
+### Exercice 4 : Négatif /
 ### Exercice 5 : Dégradé
-### Exercice 6 : Miroir
-### Exercice 7 : Image Bruité
+### Exercice 6 : Miroir /
+### Exercice 7 : Image Bruité /
 ### Exercice 8 : Rotation 90°
 ### Exercice 9 : RGB Split
 ### Exercice 10 : Luminosité
 ### Exercice 11 : Disque
 ### Exercice 12 : Cercle
 ### Exercice 13 : Rosace
-### Exercice 14 : MOsaïque
-### Exercice 15 : Mosaïque miroir
+### Exercice 14 : Mosaïque /
+### Exercice 15 : Mosaïque miroir /
 ### Exercice 16 : Glitch
-### Exercice 17 : Tramage
+### Exercice 17 : Tramage /
 ### Exercice 18 : Vortex
 ### Exercice 19 : Normalisation de l'Histogramme
-### Exercice 20 : Convolution
+### Exercice 20 : Convolution /
 ### Exercice 21 : Fractale
 
 *Italique*

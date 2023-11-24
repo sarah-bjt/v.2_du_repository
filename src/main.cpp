@@ -25,13 +25,13 @@ void onlyGreen (sil::Image image)
 
 // Exercice 2 : Echanger les canaux
 
-void canaux(sil::Image logo)
+void canaux(sil::Image image)
 {
-    for(glm::vec3& color : logo.pixels())
+    for(glm::vec3& color : image.pixels())
     {
         std::swap(color.r, color.b);
     }
-        logo.save("output/canaux.png");
+        image.save("output/canaux.png");
 };
 
 // Exercice 3 : Noir & Blanc
@@ -89,18 +89,18 @@ void miroir (sil::Image image)
     copyImage.save("output/ex06miroir.png");   
 }
 
-void miroir2(sil::Image logo)
+void miroir2(sil::Image image)
 {
-    sil::Image logo2 {logo};
-    for (int x{0}; x < logo2.width(); ++x)
+    sil::Image image2 {image};
+    for (int x{0}; x < image2.width(); ++x)
     {
-        for (int y {0}; y < logo2.height(); ++y)
+        for (int y {0}; y < image2.height(); ++y)
         {
-            float variable2 {logo2.width() - 1.f - x};
-            logo.pixel(x, y) = logo2.pixel(variable2, y);
+            float variable2 {image2.width() - 1.f - x};
+            image.pixel(x, y) = image2.pixel(variable2, y);
         }
     }
-        logo.save("output/ex06miroir02.png");
+        image.save("output/ex06miroir02.png");
 };
 
 // Exercice 7 : Image bruité
@@ -121,17 +121,17 @@ void imageBruit (sil::Image image)
     image.save("output/ex07imageBruit.png");    
 }
 
-void bruite(sil::Image logo)
+void bruite(sil::Image image)
 {
     for(int i{0}; i < 200; i++)
     {
-        int x {random_int(0, logo.width())};
-        int y {random_int(0, logo.height())};
-        logo.pixel(x, y).r = random_float(0,1);
-        logo.pixel(x, y).b = random_float(0,1);
-        logo.pixel(x, y).g = random_float(0,1);
+        int x {random_int(0, image.width())};
+        int y {random_int(0, image.height())};
+        image.pixel(x, y).r = random_float(0,1);
+        image.pixel(x, y).b = random_float(0,1);
+        image.pixel(x, y).g = random_float(0,1);
     }
-    logo.save("output/bruite.png");
+    image.save("output/bruite.png");
 };
 
 // Exercice 8 : Rotation de 90° ATTENTION NE FONCTIONNE PAS
@@ -303,49 +303,49 @@ void rosace(sil::Image image)
 // }
 
 
-void mosaique2(sil::Image logo)
+void mosaique2(sil::Image image)
 {
-    sil::Image logo2 {logo.width()*5, logo.height()*5};
-    for (int x{0}; x < logo.width(); ++x)
+    sil::Image image2 {image.width()*5, image.height()*5};
+    for (int x{0}; x < image.width(); ++x)
     {
-        for (int y{0}; y < logo.height(); ++y)
+        for (int y{0}; y < image.height(); ++y)
         {
             for (int i{0}; i < 5; ++i)
             {
             for (int j{0}; j < 5; ++j)
                 {
-                    logo2.pixel(x+i*logo.width(), y+j*logo.height()) = logo.pixel(x, y);
+                    image2.pixel(x+i*image.width(), y+j*image.height()) = image.pixel(x, y);
                 }
             }
         }
     }
-    logo2.save("output/ex14mosaique2.png");
+    image2.save("output/ex14mosaique2.png");
 }
 
 // Exercice 15 : Mosaïque miroir
 
-void mosaique_miroir(sil::Image logo)
+void mosaique_miroir(sil::Image image)
 {
-    sil::Image logo2 {logo.width()*5, logo.height()*5};
+    sil::Image image2 {image.width()*5, image.height()*5};
 
-    for (int x{0}; x < logo2.width(); x += 1)
+    for (int x{0}; x < image2.width(); x += 1)
     {
-        for (int y{0}; y < logo2.height(); y += 1)
+        for (int y{0}; y < image2.height(); y += 1)
         {
-            int NewX {x%logo.width()};
-            int NewY {y%logo.height()};
-            if ((x/logo.width()) % 2 == 1)
+            int NewX {x%image.width()};
+            int NewY {y%image.height()};
+            if ((x/image.width()) % 2 == 1)
             {
-                NewX = {logo.width() - 1 - NewX} ;
+                NewX = {image.width() - 1 - NewX} ;
             }
-            if ((y/logo.height()) % 2 == 1)
+            if ((y/image.height()) % 2 == 1)
             {
-               NewY = {logo.height() - 1 - NewY};
+               NewY = {image.height() - 1 - NewY};
             }
-            logo2.pixel(x, y) = logo.pixel(NewX, NewY);
+            image2.pixel(x, y) = image.pixel(NewX, NewY);
         }
     }
-    logo2.save("output/ex15MosaiqueMiroir.png");
+    image2.save("output/ex15MosaiqueMiroir.png");
 }
 
 // Exercice 16 : Glitch
@@ -557,9 +557,9 @@ void glitch (sil::Image image)
 
 // Exercice 17 : Tramage
 
-void tramage(sil::Image& photo)
+void tramage(sil::Image& image)
 {
-    blackAndWhite(photo);
+    blackAndWhite(image);
 
 
     const int bayer_n = 4;
@@ -570,25 +570,25 @@ void tramage(sil::Image& photo)
         { -0.3125, 0.1875, -0.4375, 0.0625 }, 
         { 0.4375, -0.625 , 0.3125, -0.1875 } };
 
-    for (int y = 0; y < photo.height(); y++)
+    for (int y = 0; y < image.height(); y++)
     { 
-        for (int x = 0 ; x < photo.width(); x++)
+        for (int x = 0 ; x < image.width(); x++)
         {
-            float orig_color = photo.pixel(x, y).r;
+            float orig_color = image.pixel(x, y).r;
             float bayer_value = bayer_matrix_4x4[y % bayer_n][x % bayer_n]; 
             float output_color = orig_color + (1 * bayer_value);
 
             if (output_color < 0.5f)
             { 
-                photo.pixel(x,y) = glm::vec3(0);
+                image.pixel(x,y) = glm::vec3(0);
             }
             else
             {
-                photo.pixel(x,y) = glm::vec3(1);
+                image.pixel(x,y) = glm::vec3(1);
             }
         } 
     }
-    photo.save("output/ex17Tramage.png");
+    image.save("output/ex17Tramage.png");
     
 }
 //  Exercice 18 : vortex
@@ -693,63 +693,99 @@ void normalisationHistogramme (sil::Image image)
 
 // Exercice 20 : Convolutions
 
-void convolutions(sil::Image logo)
+void convolutions(sil::Image image)
 {
-    sil::Image logo2 {logo};
+    sil::Image image2 {image};
 
     float kernel[3][3] = {{ 1.f/9.f, 1.f/9.f, 1.f/9.f }, 
                           { 1.f/9.f, 1.f/9.f, 1.f/9.f }, 
                           { 1.f/9.f, 1.f/9.f, 1.f/9.f }};
 
-    float moy {};
+    glm::vec3 moy {};
 
-    for (int x {0}; x < logo2.width(); x += 1)
+    for (int x {0}; x < image2.width(); x += 1)
     {
-        for (int y {0}; y < logo2.height(); y += 1)
+        for (int y {0}; y < image2.height(); y += 1)
         {
             for (int x_offset {-1}; x_offset < 1; x_offset++)
             {
                 for (int y_offset {-1}; y_offset < 1; y_offset++)
                 {
-                    if (x < logo2.width()-1 || y < logo2.height())
+                    if (x < image2.width()-1 && x > 0 && y < image2.height()-1 && y > 0)
                     {
-                        glm::vec3(moy) = logo2.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+                        moy = image2.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
                     }
                     else
                     {
-                        glm::vec3(moy) = logo2.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+                        moy = glm::vec3(0);
                     }
                 }
             }
-            logo2.pixel(x, y) = glm::vec3(moy);
+            image2.pixel(x, y) = glm::vec3(moy);
         }
     }
-    logo2.save("output/ex20Convolutions.png");
+    image2.save("output/ex20Convolutions.png");
 };
 
 // Exercice 21 : Fractale 
 
-void fractale (sil::Image image)
-{
+// void fractale (sil::Image image)
+// {
 
-   for (int x{0}; x < image.width(); x++)
-    {
-        for (int y{0}; y < image.height(); y++)
-        { 
-            std::complex<float> c {((4*x)/500)- 2  ,y};
-            std::complex<float> z {0,0};
-            int count {0};
-            do {
-                std::complex<float> z {0.f , 0.f};
-                z = z * z + c ;
+//    for (int x{0}; x < image.width(); x++)
+//     {
+//         for (int y{0}; y < image.height(); y++)
+//         { 
+//             std::complex<float> c {((4*x)/500)- 2  ,y};
+//             std::complex<float> z {0,0};
+//             int count {0};
+//             do {
+//                 std::complex<float> z {0.f , 0.f};
+//                 z = z * z + c ;
                 
-                count ++;
+//                 count ++;
 
-            } while (std::abs(z) < 2);
-        } 
-    }  
-    image.save("output/ex22fractale.png");
-}
+//             } while (std::abs(z) < 2);
+//         } 
+//     }  
+//     image.save("output/ex22fractale.png");
+// }
+
+// Exercice 22 : Netteté, contours, ect
+
+// void contours(sil::Image image)
+// {
+//     sil::Image image2 {image};
+
+//     float kernel[3][3] = {{ -2.f, -1.f, 0.f }, 
+//                           { -1.f, 1.f, 1.f }, 
+//                           { 0.f, 1.f, 2.f }};
+
+//     float moy {};
+
+//     for (int x {0}; x < image2.width(); x += 1)
+//     {
+//         for (int y {0}; y < image2.height(); y += 1)
+//         {
+//             for (int x_offset {-1}; x_offset < 1; x_offset++)
+//             {
+//                 for (int y_offset {-1}; y_offset < 1; y_offset++)
+//                 {
+//                     if (x < image2.width()-1 || y < image2.height())
+//                     {
+//                         glm::vec3(moy) = image2.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
+//                     }
+//                     else
+//                     {
+//                         glm::vec3(moy) = glm::vec3(0);
+//                     }
+//                 }
+//             }
+//             image2.pixel(x, y) = glm::vec3(moy);
+//         }
+//     }
+//     image2.save("output/ex22Netteté.png");
+// }
 
 
 int main()
@@ -762,10 +798,11 @@ int main()
     sil::Image result {345, 300};
 //    onlyGreen(logo);
 //    blueAndRedReverse(logo);
+//    canaux(logo);
 // {
-//     sil::Image copie{photo};
-//     blackAndWhite(copie);
-//     copie.save("output/ex03blackAndWhite.png");
+//     sil::Image copie{logo};
+//     blackAndWhite(logo);
+//     logo.save("output/ex03blackAndWhite.png");
 // }
 //    inverteColor(logo);
 //    degrader();
@@ -780,14 +817,20 @@ int main()
 //    mosaique1(logo);
 //    mosaique2(logo);
 //    mosaique_miroir(logo);
+// {
+//     sil::Image copie{photo};
+//     blackAndWhite(photo);
+//     photo.save("output/Avant_tramage.png");
+// }
 //    tramage(photo);
 //    mosaique_miroir(logo);
 //    glitch(logo);
 //    vortex(logo);
 //   normalisationHistogramme(photo);
-    // convolutions(logo);
+    convolutions(logo);
     // bruite(logo);
     // rosace(sil::Image{500, 500});
-    fractale(imagefinal);
+    // fractale(imagefinal);
+    // contours(logo);
     return 0;
 }
