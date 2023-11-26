@@ -650,7 +650,7 @@ int main()
 // }
 
 //    inverteColor(logo);
-    degrader();
+//    degrader();
 //    miroir(logo);
 //    Bruit_vSarah(logo, 0.28);
 //    Bruit_vAgathe(logo);
