@@ -62,7 +62,7 @@ On choisit le nombre de bruit que l'on veut créer et l'on effectue une boucle p
 ![image](./images/logo.png) ![image](./output/ex07bruit_vSarah.png)
 
 ---
-### Exercice 08 : RGB Split S
+### Exercice 08 : RGB Split 
 **Fonctionnement**
 La fonction crée une copie de l'image d'origine, puis sépare les composantes rouges, bleues et vertes de l'image d'origine pour les placer respectivement du côté droit, gauche et au centre de l'image copiée. L'espacement entre les couleurs est choisit en argument.
 
@@ -76,19 +76,19 @@ Si chaque couleur est espacé de 1/5 de la taille de l'image d'origine alors le 
 
 
 ---
-### Exercice 09 : Luminosité S
+### Exercice 09 : Luminosité 
 
 La fonction ajuste la luminosité de chaque pixel en élevant chaque composante de couleur à la puissance 0.6. Cela a pour effet de réduire l'intensité lumineuse globale de l'image.
 
 ![image](./images/photo.jpg) ![image](./output/ex09luminosite.png)
 ---
-### Exercice 10 : Disque S
+### Exercice 10 : Disque 
 ![image](./output/ex10disque.png)
 ---
-### Exercice 11 : Cercle S
+### Exercice 11 : Cercle 
 ![image](./output/ex11cercle.png)
 ---
-### Exercice 12 : Rosace S
+### Exercice 12 : Rosace 
 **Fonctionnement**
 
 Les coordonnées du centre et le rayon du cercle central sont définis, puis une boucle génère les coordonnées des cercles périphériques en fonction du nombre de cercles spécifié (nb_circles). Ces coordonnées sont calculées en utilisant les fonctions trigonométriques cos et sin pour répartir les cercles uniformément autour du cercle central. Chaque cercle est ensuite dessiné à l'aide de la fonction dessineCercle.
@@ -130,7 +130,7 @@ Comme pour la mosaïque, on crée d'abord une image 5 fois plus grande que l'ima
 
 ![image](./images/logo.png) ![image](./output/ex14mosaiqueMiroir.png)
 
-### Exercice 15 : Glitch S
+### Exercice 15 : Glitch 
 **Fonctionnement**
 
 La fonction crée une version glitchée d'une image en remplaçant des portions aléatoires de l'image par des segments provenant d'autres parties de l'image. Le nombre de glitchs et les paramètres spécifiques de chaque glitch (position, longueur, largeur) sont déterminés de manière aléatoire.
@@ -138,7 +138,7 @@ La fonction crée une version glitchée d'une image en remplaçant des portions 
 ![image](./images/logo.png) ![image](./output/ex15glitch.png)
 
 ---
-### Exercice 16 : Fractale S
+### Exercice 16 : Fractale 
 ![image](./output/ex16fractale.png)
 
 **Problème rencontré**
