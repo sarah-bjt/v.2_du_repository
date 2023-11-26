@@ -105,13 +105,13 @@ void miroir2(sil::Image image)
 
 // Exercice 7 : Image bruité
 
-void imageBruit (sil::Image image)
+void imageBruit (sil::Image image, float taux_de_bruit)
 {
     for (glm::vec3& color : image.pixels())
     {
         // int isPixelBruit {random_int(0, 4)};
         float rand{random_float(0.f, 1.f)};
-        if (rand < 0.28f)
+        if (rand < taux_de_bruit)
         {
             color.r =  random_float(0, 1);
             color.b =  random_float(0, 1);
@@ -151,30 +151,30 @@ void bruite(sil::Image image)
 // Exercice 9 : RGB split
 
 
-// void RGBsplit (sil::Image image) // effet arlequin
-// {
-//     sil::Image copy {image};
-//     for (int x{0}; x < image.width()-(image.width()/5); x++) // pour le rouge vers la drt
-//     {
-//         for (int y{0}; y < image.height(); y++)
-//         {
-//             copy.pixel(x+(image.width()/5), y).r = image.pixel(x,y).r;
-//         }
-//     }
-//     for (int x{(image.width()/5)}; x< image.width(); x++) // pour le bleu vers la gch
-//     {
-//         for (int y{0}; y < image.height(); y++)
-//         {
-//             copy.pixel(x - (image.width()/5), y).b = image.pixel(x,y).b;
-//         }
-//     }
-//     copy.save("output/ex09RGBsplit.png");
-// }
+void RGBsplit_arlequin (sil::Image image) // effet arlequin
+{
+    sil::Image copy {image};
+    for (int x{0}; x < image.width()-(image.width()/5); x++) // pour le rouge vers la drt
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            copy.pixel(x+(image.width()/5), y).r = image.pixel(x,y).r;
+        }
+    }
+    for (int x{(image.width()/5)}; x< image.width(); x++) // pour le bleu vers la gch
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            copy.pixel(x - (image.width()/5), y).b = image.pixel(x,y).b;
+        }
+    }
+    copy.save("output/ex09RGBsplit_version_arlequin.png");
+}
 
-void RGBsplit (sil::Image image)
+void RGBsplit (sil::Image image,int offset_number)
 {
     sil::Image copy {image.width(),image.height()};
-    int offset{image.width()/9};
+    int offset{image.width()/offset_number};
     for (int x{0}; x < image.width()-offset; x++) // pour le rouge vers la drt
     {
         for (int y{0}; y < image.height(); y++)
@@ -270,11 +270,14 @@ void dessineCercle( sil::Image& image, float x0 , float y0 , float rayon, float 
 
 void rosace(sil::Image image)
 {
-    dessineCercle (image, 250,250,100,2); //centre
-    int nb_circles{50};
+    float rayon {100.f};
+    float epaisseur {5.f};
+
+    dessineCercle (image, 250,250,rayon,epaisseur); //centre
+    int nb_circles{6};
     for(int i {0}; i < nb_circles; ++i)
     {
-        dessineCercle (image,250 +95*std::cos((i*M_PI*2)/nb_circles),250 +95*std::sin((i*M_PI*2)/nb_circles),100,2);
+        dessineCercle (image,250 +(rayon - epaisseur)*std::cos((i*M_PI*2)/nb_circles),250 +(rayon - epaisseur)*std::sin((i*M_PI*2)/nb_circles),rayon,epaisseur);
     }
     image.save("output/ex13rosace.png");
 }
@@ -598,31 +601,31 @@ glm::vec2 rotated(glm::vec2 point, glm::vec2 center_of_rotation, float angle)
     return glm::vec2{glm::rotate(glm::mat3{1.f}, angle) * glm::vec3{point - center_of_rotation, 0.f}} + center_of_rotation;
 }
 
-// void vortex (sil::Image image)        cool mais pas ce qu'on veut
-// {
-//     sil::Image imageVortex {image};
-//     int x_centre {image.width()/2};
-//     int y_centre {image.height()/2};
-//     int width {image.width()};
-//     int height {image.height()};
+void vortex_ptNoir (sil::Image image)     //   cool mais pas ce qu'on veut
+{
+    sil::Image imageVortex {image.width(),image.height()};
+    int x_centre {image.width()/2};
+    int y_centre {image.height()/2};
+    int width {image.width()};
+    int height {image.height()};
 
-//     for (int x{0}; x < image.width(); x++)
-//     {
-//         for (int y{0}; y < image.height(); y++)
-//         {
-//             double distance_centre { pow( pow((x- x_centre),2) + pow((y - y_centre),2) , 0.5 )};
-//             double  longueur_max { pow( pow(width,2) + pow( height,2) , 0.5 ) };
-//             glm::vec2 nouveau_point { rotated( glm::vec2{x,y}, {x_centre,y_centre}, 2*M_PI*(distance_centre/longueur_max))};
-//             if ( nouveau_point.x < width && nouveau_point.x > 0 && nouveau_point.y < height && nouveau_point.y > 0 )
-//             {
-//                 imageVortex.pixel(nouveau_point.x, nouveau_point.y).r = image.pixel(x,y).r;
-//                 imageVortex.pixel(nouveau_point.x, nouveau_point.y).b = image.pixel(x,y).b;
-//                 imageVortex.pixel(nouveau_point.x, nouveau_point.y).g = image.pixel(x,y).g;
-//             }
-//         }
-//     }
-//     imageVortex.save("output/ex18vortex.png");
-// }
+    for (int x{0}; x < image.width(); x++)
+    {
+        for (int y{0}; y < image.height(); y++)
+        {
+            double distance_centre { pow( pow((x- x_centre),2) + pow((y - y_centre),2) , 0.5 )};
+            double  longueur_max { pow( pow(width,2) + pow( height,2) , 0.5 ) };
+            glm::vec2 nouveau_point { rotated( glm::vec2{x,y}, {x_centre,y_centre}, 4*M_PI*(distance_centre/longueur_max))};
+            if ( nouveau_point.x < width && nouveau_point.x > 0 && nouveau_point.y < height && nouveau_point.y > 0 )
+            {
+                imageVortex.pixel(nouveau_point.x, nouveau_point.y).r = image.pixel(x,y).r;
+                imageVortex.pixel(nouveau_point.x, nouveau_point.y).b = image.pixel(x,y).b;
+                imageVortex.pixel(nouveau_point.x, nouveau_point.y).g = image.pixel(x,y).g;
+            }
+        }
+    }
+    imageVortex.save("output/ex18vortex_version_ptNoir.png");
+}
 
 void vortex (sil::Image image)
 {
@@ -701,7 +704,7 @@ void convolutions(sil::Image image)
                           { 1.f/9.f, 1.f/9.f, 1.f/9.f }, 
                           { 1.f/9.f, 1.f/9.f, 1.f/9.f }};
 
-    for (int x {0}; x < image2.width(); x += 1)
+        for (int x {0}; x < image2.width(); x += 1)
     {
         for (int y {0}; y < image2.height(); y += 1)
         {
@@ -746,12 +749,12 @@ void fractale (sil::Image image)
             if (std::abs(z) >= 2)
             {
                 image.pixel(x, y) = glm::vec3(0 + count/45.f);
-        } 
-else 
+            }
+            else 
             {
                 image.pixel(x, y) = glm::vec3(1);
-    }  
-    } 
+            }
+        } 
     }  
     image.save("output/ex21fractale.png");
 }
@@ -762,24 +765,24 @@ void emboss(sil::Image image)
 {
     sil::Image image2 {image};
 
-    float kernel[3][3] = {{ -2.f, -1.f, 0.f }, 
-                          { -1.f, 1.f, 1.f }, 
-                          { 0.f, 1.f, 2.f }};
+float kernel[3][3] = {{ -2.f, -1.f, 0.f }, 
+{ -1.f, 1.f, 1.f }, 
+{ 0.f, 1.f, 2.f }};
 
-   for (int x {0}; x < image2.width(); x += 1)
-    {
+for (int x {0}; x < image2.width(); x += 1)
+{
         for (int y {0}; y < image2.height(); y += 1)
-        {
+{
             glm::vec3 moy {};
 
             for (int x_offset {-1}; x_offset < 2; x_offset++)
-            {
+{
                 for (int y_offset {-1}; y_offset < 2; y_offset++)
-                {
+{
                     if (x < image2.width()-1 && x > 0 && y < image2.height()-1 && y > 0)
                     {
                         moy += image.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
-                    }
+}
                     else
                     {
                         moy += glm::vec3(0);
@@ -867,17 +870,23 @@ void sharpen(sil::Image image)
 
 // Exercice Tri de pixels
 
-void triPixels {sil::Image image}
-{
-    sil::Image copyImage {image};
-    for (int x{0}; x < image.width(); x++)
-    {
-        for (int y{0}; y < image.height(); y++)
-        { 
-        }
-    }    
+// void triPixel (sil::Image image)
+// {
+//     sil::Image copyImage {image};
+//     for (int x{0}; x < image.width(); x++)
+//     {
+//         for (int y{0}; y < image.height(); y++)
+//         { 
+//             std::vector<glm::vec3> v{/*...*/};
+//             glm::vec3 brightness = /3;
+//             std::sort(v.begin(), v.end(), [](glm::vec3 const& color1, glm::vec3 const& color2)
+//             {
+//                 return brightness(color1) < brightness(color2); // Trie selon la luminosité des couleurs (NB : c'est à vous de coder la fonction `brightness`)
+//             });
+//         }
+//     }    
     
-}
+// }
 
 int main()
 {
@@ -898,11 +907,12 @@ int main()
 //    inverteColor(logo);
 //    degrader();
 //    miroir(logo);
-//    imageBruit(logo);
+//    imageBruit(logo, 0.28);
 //    bruite(logo);
 //   rotation90(logo,result); //attention ne fonctionne pas
-//    RGBsplit(logo);
-//    luminosite(photoc);
+//    RGBsplit(logo, 7);
+//RGBsplit_arlequin(logo);
+//   luminosite(photoc);
 //    disque();
 //    cercle(50);
 //    mosaique1(logo);
@@ -917,13 +927,14 @@ int main()
 //    mosaique_miroir(logo);
 //    glitch(logo);
 //    vortex(logo);
+vortex_ptNoir(logo);
 //   normalisationHistogramme(photo);
     // convolutions(logo);
     // bruite(logo);
-    // rosace(sil::Image{500, 500});
+//     rosace(sil::Image{500, 500});
     // fractale(imagefinal);
     // emboss(logo);
-    // outline(logo);
+// outline(logo);
     // sharpen(logo);
     return 0;
 }
