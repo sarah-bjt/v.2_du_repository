@@ -1,5 +1,39 @@
-# S1 | Prog: Workshop c++
-## Beaujault Sarah & Jan Agathe
+# S1 | Prog : Workshop C++
+##### Beaujault Sarah & Jan Agathe
+
+---
+## Table des Matières
+
+- [S1 | Prog : Workshop C++](#s1--prog--workshop-c)
+        - [Beaujault Sarah \& Jan Agathe](#beaujault-sarah--jan-agathe)
+  - [Table des Matières](#table-des-matières)
+    - [Exercice 01 : Ne garder que le vert](#exercice-01--ne-garder-que-le-vert)
+    - [Exercice 02 : Échanger les canaux](#exercice-02--échanger-les-canaux)
+    - [Exercice 03 : Noir et blanc](#exercice-03--noir-et-blanc)
+    - [Exercice 04 : Négatif](#exercice-04--négatif)
+    - [Exercice 05 : Dégradé](#exercice-05--dégradé)
+  - [](#)
+    - [Exercice 06 : Miroir](#exercice-06--miroir)
+    - [Exercice 07 : Image Bruité](#exercice-07--image-bruité)
+    - [Exercice 08 : RGB Split](#exercice-08--rgb-split)
+    - [Exercice 09 : Luminosité](#exercice-09--luminosité)
+  - [ ](#-)
+    - [Exercice 10 : Disque](#exercice-10--disque)
+  - [](#-1)
+    - [Exercice 11 : Cercle](#exercice-11--cercle)
+  - [](#-2)
+    - [Exercice 12 : Rosace](#exercice-12--rosace)
+    - [Exercice 13 : Mosaïque](#exercice-13--mosaïque)
+    - [Exercice 14 : Mosaïque miroir](#exercice-14--mosaïque-miroir)
+    - [Exercice 15 : Glitch](#exercice-15--glitch)
+    - [Exercice 16 : Fractale](#exercice-16--fractale)
+    - [Exercice 17 : Tramage](#exercice-17--tramage)
+    - [Exercice 18 : Vortex](#exercice-18--vortex)
+    - [Exercice 19 : Normalisation de l'Histogramme](#exercice-19--normalisation-de-lhistogramme)
+    - [Exercice 20 : Convolution](#exercice-20--convolution)
+    - [Exercice 21 : Emboss](#exercice-21--emboss)
+    - [Exercice 22 : Outline](#exercice-22--outline)
+    - [Exercice 23 : Sharpen](#exercice-23--sharpen)
 
 ---
 
