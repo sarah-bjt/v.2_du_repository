@@ -249,7 +249,7 @@ float kernel[3][3] = {{ -2.f, -1.f, 0.f },
                       { 0.f, 1.f, 2.f }};
 ```
 
-![image](./images/logo.png) ![image](./output/ex21Emboss.png)
+![image](./images/logo.png) ![image](./output/ex21emboss.png)
 
 ### Exercice 22 : Outline
 **Fonctionnement**
@@ -260,7 +260,7 @@ float kernel[3][3] = {{ -1.f, -1.f, -1.f },
                       { -1.f, -1.f, -1.f }};
 ```
 
-![image](./images/logo.png) ![image](./output/ex22Outline.png)
+![image](./images/logo.png) ![image](./output/ex22outline.png)
 
 ### Exercice 23 : Sharpen
 **Fonctionnement**
@@ -271,6 +271,6 @@ float kernel[3][3] = {{ 0.f, -1.f, 0.f },
                       { 0.f, -1.f, 0.f }};
 ```
 
-![image](./images/logo.png) ![image](./output/ex23Sharpen.png)
+![image](./images/logo.png) ![image](./output/ex23sharpen.png)
 
 
