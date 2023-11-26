@@ -12,16 +12,12 @@
     - [Exercice 03 : Noir et blanc](#exercice-03--noir-et-blanc)
     - [Exercice 04 : Négatif](#exercice-04--négatif)
     - [Exercice 05 : Dégradé](#exercice-05--dégradé)
-  - [](#)
     - [Exercice 06 : Miroir](#exercice-06--miroir)
     - [Exercice 07 : Image Bruité](#exercice-07--image-bruité)
     - [Exercice 08 : RGB Split](#exercice-08--rgb-split)
     - [Exercice 09 : Luminosité](#exercice-09--luminosité)
-  - [ ](#-)
     - [Exercice 10 : Disque](#exercice-10--disque)
-  - [](#-1)
     - [Exercice 11 : Cercle](#exercice-11--cercle)
-  - [](#-2)
     - [Exercice 12 : Rosace](#exercice-12--rosace)
     - [Exercice 13 : Mosaïque](#exercice-13--mosaïque)
     - [Exercice 14 : Mosaïque miroir](#exercice-14--mosaïque-miroir)
@@ -59,6 +55,7 @@
 On part d'une image totalement noire, puis on éclaircit chaque pixel en fonction de leurs colonnes.
 
 ![image](./output/ex05degrader.png)
+
 ---
 
 ### Exercice 06 : Miroir
@@ -115,12 +112,15 @@ Si chaque couleur est espacé de 1/5 de la taille de l'image d'origine alors le 
 La fonction ajuste la luminosité de chaque pixel en élevant chaque composante de couleur à la puissance 0.6. Cela a pour effet de réduire l'intensité lumineuse globale de l'image.
 
 ![image](./images/photo.jpg) ![image](./output/ex09luminosite.png)
+
 ---
 ### Exercice 10 : Disque 
 ![image](./output/ex10disque.png)
+
 ---
 ### Exercice 11 : Cercle 
 ![image](./output/ex11cercle.png)
+
 ---
 ### Exercice 12 : Rosace 
 **Fonctionnement**
