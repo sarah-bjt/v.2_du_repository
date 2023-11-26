@@ -69,7 +69,7 @@ Au tout départ, je n'avais pas effectué de copie de l'image et modifiait direc
 
 ---
 ### Exercice 07 : Image Bruité
-####Version de Sarah 
+#### Version de Sarah 
 **Fonctionnement**
 Pour chaque pixel qui compose l'image, on détermine aléatoirement si ce pixel est bruité ou non. Si oui on l'associe à une couleur choisie elle aussi aléatoirement.
 
@@ -86,7 +86,7 @@ Le code final contient ces ligne qui permettent de pouvoir choisir avec beaucoup
         if (rand < 0.28f)`
 
 
-####Version d'Agathe
+#### Version d'Agathe
 **Fonctionnement**
 On choisit le nombre de bruit que l'on veut créer et l'on effectue une boucle pour rajouter chaque point du bruit un par un. Au sein de la boucle, on choisit un pixel au hasard et on attribue une couleur au hasard à chacune des composantes (verte, bleue et jaune) avec un `random_float(0,1)`
 
