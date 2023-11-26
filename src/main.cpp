@@ -668,7 +668,7 @@ int main()
 // {
 //     sil::Image copie{photo};
 //     blackAndWhite(photo);
-//     photo.save("output/Avant_tramage.png");
+//     photo.save("output/ex17avant_tramage.png");
 // }
 //    tramage(photo);
 
