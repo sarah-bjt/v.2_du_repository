@@ -675,9 +675,9 @@ int main()
 //    vortex(logo);
 //    vortex_ptNoir(logo);
 //    normalisationHistogramme(photo_faible);
-    convolutions(logo);
+   convolutions(logo);
    emboss(logo);
-    outline(logo);
-    sharpen(logo);
+   outline(logo);
+   sharpen(logo);
     return 0;
 }
