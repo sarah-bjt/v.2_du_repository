@@ -31,7 +31,7 @@ void canaux(sil::Image image)
     {
         std::swap(color.r, color.b);
     }
-        image.save("output/canaux.png");
+        image.save("output/ex02blueAndRedReverse.png");
 };
 
 // Exercice 3 : Noir & Blanc

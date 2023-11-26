@@ -8,11 +8,15 @@
 
 ---
 ### Exercice 2 : échange les canaux
+![image](./images/logo.png) ![image](./output/ex02blueAndRedReverse.png)
 ---
 ### Exercice 3 : Noir et blanc /
 ![image](./images/logo.png) ![image](./output/ex03blackAndWhite.png)
 ---
-### Exercice 4 : Négatif A
+
+### Exercice 4 : Négatif
+![image](./images/logo.png) ![image](./output/ex04inverteColor.png)
+
 ---
 ### Exercice 5 : Dégradé S
 **Fonctionnement** :
@@ -20,7 +24,10 @@ On part d'une image totalement noir, puis on éclairci chaque pixel en fonction 
 
 ![image](./output/ex05degrader.png)
 ---
-### Exercice 6 : Miroir A
+
+### Exercice 6 : Miroir
+![image](./images/logo.png) ![image](./output/ex06miroir.png)
+
 ---
 ### Exercice 7 : Image Bruité A S
 ####Version de Sarah 
@@ -72,13 +79,18 @@ La fonction ajuste la luminosité de chaque pixel en élevant chaque composante 
 Les coordonnées du centre et le rayon du cercle central sont définis, puis une boucle génère les coordonnées des cercles périphériques en fonction du nombre de cercles spécifié (nb_circles). Ces coordonnées sont calculées en utilisant les fonctions trigonométriques cos et sin pour répartir les cercles uniformément autour du cercle central. Chaque cercle est ensuite dessiné à l'aide de la fonction dessineCercle.
 
 ![image](./output/ex13rosace.png)
----
-### Exercice 14 : MOsaïque A
----
-### Exercice 15 : Mosaïque miroir A
----
-### Exercice 16 : Glitch S
 
+### Exercice 14 : Mosaïque
+![image](./images/logo.png) ![image](./output/ex14mosaique.png)
+
+
+
+![image](./output/ex14mosaique2.png)
+
+### Exercice 15 : Mosaïque miroir
+![image](./images/logo.png) ![image](./output/ex15MosaiqueMiroir.png)
+
+### Exercice 16 : Glitch S
 **Fonctonnemnt**
 
 La fonction crée une version glitchée d'une' image en remplaçant des portions aléatoires de l'image par des segments provenant d'autres parties de l'image. Le nombre de glitches et les paramètres spécifiques de chaque glitch (position, longueure, largeure) sont déterminés de manière aléatoire.
@@ -86,7 +98,8 @@ La fonction crée une version glitchée d'une' image en remplaçant des portions
 ![image](./images/logo.png) ![image](./output/ex16glitch.png)
 
 ---
-### Exercice 17 : Tramage A
+### Exercice 17 : Tramage
+![image](./images/photo.jpg) ![image](./output/ex17Tramage.png)
 ---
 ### Exercice 18 : Vortex S
 ![image](./images/logo.png)  ![image](./output/ex18vortex.png)
@@ -116,7 +129,8 @@ Résultat :
 ![image](./output/ex19normalisationHistogramme_version.1.png)
 
 ---
-### Exercice 20 : Convolution A
+### Exercice 20 : Convolution
+![image](./images/logo.png) ![image](./output/ex20Convolutions.png)
 ---
 ### Exercice 21 : Fractale S
 ![image](./output/ex21fractale.png)
@@ -126,6 +140,16 @@ Résultat :
 La première fois que j'ai essayé de faire toourner le programme je n'ai pas reussie car j'ai oublié de mettre le `static_cast<float>`
 
 ---
+
+
+### Exercice 22 : Emboss
+![image](./images/logo.png) ![image](./output/ex22Emboss.png)
+
+### Exercice 23 : Outline
+![image](./images/logo.png) ![image](./output/ex23Outline.png)
+
+### Exercice 24 : Sharpen
+![image](./images/logo.png) ![image](./output/ex23Sharpen.png)
 
 
 *Italique*
