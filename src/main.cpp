@@ -82,7 +82,7 @@ void miroir(sil::Image image)
     {
         for (int y {0}; y < image2.height(); ++y)
         {
-            float inverse_x {image2.width() - 1.f - x};
+            int inverse_x {image2.width() - 1 - x}; // Pourquoi un float et pas un int ?
             image.pixel(x, y) = image2.pixel(inverse_x, y);
         }
     }
@@ -126,23 +126,18 @@ void RGBsplit (sil::Image image,int offset_number)
 {
     sil::Image copy {image.width(),image.height()};
     int offset{image.width()/offset_number};
-    for (int x{0}; x < image.width()-offset; x++) // pour le rouge vers la drt
+    // En mettant la boucle sur y en premier, vous pouvez ne l'écrire qu'une seule fois
+    for (int y{0}; y < image.height(); y++)
     {
-        for (int y{0}; y < image.height(); y++)
+        for (int x{0}; x < image.width()-offset; x++) // pour le rouge vers la drt
         {
             copy.pixel(x+offset, y).r = image.pixel(x,y).r;
         }
-    }
-    for (int x{(offset)}; x< image.width(); x++) // pour le bleu vers la gch
-    {
-        for (int y{0}; y < image.height(); y++)
+        for (int x{(offset)}; x< image.width(); x++) // pour le bleu vers la gch
         {
             copy.pixel(x - (offset), y).b = image.pixel(x,y).b;
         }
-    }
-    for (int x{}; x< image.width(); x++) // pour le vert
-    {
-        for (int y{0}; y < image.height(); y++)
+        for (int x{}; x< image.width(); x++) // pour le vert
         {
             copy.pixel(x , y).g = image.pixel(x,y).g;
         }
@@ -226,6 +221,7 @@ void rosace(sil::Image image)
     int nb_circles{6};
     for(int i {0}; i < nb_circles; ++i)
     {
+        // C'est très bien d'avoir réutilisé la fonction dessineCercle() et de ne pas avoir juste copié-collé le code bêtement.
         dessineCercle (image, half_height +(rayon - epaisseur)*std::cos((i*M_PI*2)/nb_circles), half_width+(rayon - epaisseur)*std::sin((i*M_PI*2)/nb_circles),rayon,epaisseur);
     }
     image.save("output/ex12rosace.png");
@@ -286,11 +282,12 @@ void mosaique_miroir(sil::Image image)
             int NewY {y%image.height()};
             if ((x/image.width()) % 2 == 1)
             {
-                NewX = {image.width() - 1 - NewX} ;
+                // Pas besoin de mettre d'accolades
+                NewX = image.width() - 1 - NewX ;
             }
             if ((y/image.height()) % 2 == 1)
             {
-               NewY = {image.height() - 1 - NewY};
+               NewY = image.height() - 1 - NewY;
             }
             image2.pixel(x, y) = image.pixel(NewX, NewY);
         }
@@ -526,35 +523,14 @@ void convolutions(sil::Image image)
 
 void emboss(sil::Image image)
 {
-    sil::Image image2 {image};
+    // Ca aurait été bien de ne pas copier-coller le code de convolution dans chacune des fonctions qui fait une convolution.
+    // A la place, vous auriez pu faire une fonction qui prend en paramètre le kernel et l'applique. Puis dans emboss vous auriez juste eu à faire :
 
 float kernel[3][3] = {{ -2.f, -1.f, 0.f }, 
 { -1.f, 1.f, 1.f }, 
 { 0.f, 1.f, 2.f }};
 
-for (int x {0}; x < image2.width(); x += 1)
-{
-        for (int y {0}; y < image2.height(); y += 1)
-{
-            glm::vec3 moy {};
-
-            for (int x_offset {-1}; x_offset < 2; x_offset++)
-{
-                for (int y_offset {-1}; y_offset < 2; y_offset++)
-{
-                    if (x < image2.width()-1 && x > 0 && y < image2.height()-1 && y > 0)
-                    {
-                        moy += image.pixel(x + x_offset, y + y_offset)*kernel[x_offset+1][y_offset+1];
-}
-                    else
-                    {
-                        moy += glm::vec3(0);
-                    }
-                }
-            }
-            image2.pixel(x, y) = moy;
-        }
-    }
+compute_convolution(image, kernel);
     image2.save("output/ex21emboss.png");
 }
 
