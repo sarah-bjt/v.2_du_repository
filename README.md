@@ -101,7 +101,7 @@ La fonction crée une copie de l'image d'origine, puis sépare les composantes r
 
 **Remarque**
 
-Si chaque couleur est espacé de 1/5 de la taille de l'image d'origine alors le résultat ressemble à un effet arlequin 
+Si chaque couleur est espacé de 1/5 de la taille de l'image d'origine alors le résultat ressemble à un effet arlequin <!-- Sympa! -->
 
 ![image](./output/ex08RGBsplit_arlequin.png)
 
